@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b2s483v0wqrns"]
 
 [ext_resource type="Script" uid="uid://dchjn4noh2ylj" path="res://utils/creator_ui.gd" id="1_ahc8p"]
+[ext_resource type="PackedScene" uid="uid://dalbg28p2i045" path="res://models/human.glb" id="2_cew4c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur1xi"]
 bg_color = Color(0.18000486, 0.1800049, 0.18000478, 1)
@@ -63,6 +64,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor" unique_id=1797216576]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Skin Colour"
@@ -76,8 +78,18 @@ color = Color(0.728822, 0.728822, 0.728822, 1)
 edit_alpha = false
 edit_intensity = false
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=794847787]
+[node name="Radius" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=177819532]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Radius" unique_id=55336545]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Radius"
+
+[node name="RadiusHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Radius" unique_id=794847787]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="MenuButtons" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1063280777]
 layout_mode = 2
@@ -114,8 +126,15 @@ size = Vector2i(542, 589)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport" unique_id=757060213]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 2)
 projection = 1
-size = 1.1
+size = 2.0
+
+[node name="human" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport" unique_id=738314951 instance=ExtResource("2_cew4c")]
+
+[node name="MaleMesh" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D" parent_id_path=PackedInt32Array(738314951, 1634096222) index="0" unique_id=101269200]
+visible = false
 
 [connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor/SkinColorPickerButton" to="." method="_on_skin_color_picker_button_color_changed"]
+
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human"]

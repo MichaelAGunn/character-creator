@@ -37,8 +37,8 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if Input.is_action_just_pressed("pause"):
-			#get_tree().paused = !get_tree().paused
-			creator_ui.visible = !creator_ui.visible
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventKey:
+		#if Input.is_action_just_pressed("pause"):
+			##get_tree().paused = !get_tree().paused
+			#creator_ui.visible = !creator_ui.visible

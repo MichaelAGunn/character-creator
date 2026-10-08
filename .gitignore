@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/refs/
+
+# Blender 5+ specific ignores
+.blend1
