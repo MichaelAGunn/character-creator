@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://di0ivoscrg4kr"]
+
+[ext_resource type="Script" uid="uid://5j21fptm7rog" path="res://utils/player.gd" id="1_qlqhq"]
+[ext_resource type="PackedScene" uid="uid://dalbg28p2i045" path="res://models/human.glb" id="2_pinhd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tcm6d"]
+radius = 0.3
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tcm6d"]
+radius = 0.3
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_agvph"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D" unique_id=987312890]
+script = ExtResource("1_qlqhq")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=784258207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_tcm6d")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1786244440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_tcm6d")
+surface_material_override/0 = SubResource("StandardMaterial3D_agvph")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=1359873039]
+transform = Transform3D(1, 0, 0, 0, 0.9109286, 0.41256404, 0, -0.41256404, 0.9109286, 0, 0.9616231, 0.9556471)
+
+[node name="human" parent="." unique_id=738314951 instance=ExtResource("2_pinhd")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[editable path="human"]

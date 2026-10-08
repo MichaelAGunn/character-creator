@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://b2s483v0wqrns"]
+
+[ext_resource type="Script" uid="uid://dchjn4noh2ylj" path="res://utils/creator_ui.gd" id="1_ahc8p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur1xi"]
+bg_color = Color(0.18000486, 0.1800049, 0.18000478, 1)
+
+[node name="CreatorUI" type="Control" unique_id=1250869140]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahc8p")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1128065577]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=2039424883]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ur1xi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=181228083]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=731058294]
+layout_mode = 2
+text = "Character Creator"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=639077012]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1186542209]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionsMargin" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1036586250]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin" unique_id=949291527]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer" unique_id=959942018]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkinColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1144611698]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor" unique_id=1797216576]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Skin Colour"
+
+[node name="SkinColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor" unique_id=1502081456]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+color = Color(0.728822, 0.728822, 0.728822, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=794847787]
+layout_mode = 2
+
+[node name="MenuButtons" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1063280777]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SaveButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MenuButtons" unique_id=1338846063]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Save"
+
+[node name="CancelButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MenuButtons" unique_id=58204077]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
+
+[node name="SubViewportMargin" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1465210365]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin" unique_id=458615714]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer" unique_id=1169883525]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(542, 589)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport" unique_id=757060213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1)
+projection = 1
+size = 1.1
+
+[connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor/SkinColorPickerButton" to="." method="_on_skin_color_picker_button_color_changed"]
