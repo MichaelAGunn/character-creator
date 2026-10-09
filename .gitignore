@@ -4,4 +4,4 @@
 /refs/
 
 # Blender 5+ specific ignores
-.blend1
+*.blend1

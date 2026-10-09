@@ -35,6 +35,7 @@ use_collision = true
 size = Vector3(20, 1, 20)
 material = SubResource("StandardMaterial3D_tcm6d")
 
-[node name="CreatorUI" parent="." unique_id=1250869140 instance=ExtResource("3_1fxhy")]
+[node name="CreatorUI" parent="." unique_id=1250869140 node_paths=PackedStringArray("player") instance=ExtResource("3_1fxhy")]
+player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=987312890 instance=ExtResource("2_1fxhy")]

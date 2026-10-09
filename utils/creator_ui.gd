@@ -1,23 +1,88 @@
 extends Control
 
-@onready var player: CharacterBody3D = $"../Player"
-@onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D/MaleMesh
+@export var player: Player
+
+# Subviewport Assets
+@onready var elokido: Node3D = %elokido # Iterate through children to find acdessory meshes
+@onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D/Mesh#$MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D/MaleMesh
+@onready var sub_viewport = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport
 @onready var camera: Camera3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/Camera3D
 
+# Color Picker Buttons
 @onready var skin_color_picker_button: ColorPickerButton = %SkinColorPickerButton
+@onready var hat_color_picker_button: ColorPickerButton = %HatColorPickerButton
+#@onready var outfit_color_picker_button: ColorPickerButton = %OutfitColorPickerButton
+#@onready var ring_color_picker_button: ColorPickerButton = %RingColorPickerButton
+#@onready var earring_color_picker_button: ColorPickerButton = %EarringColorPickerButton
+#@onready var shoes_color_picker_button: ColorPickerButton = %ShoesColorPickerButton
 @onready var picker_buttons: Array[ColorPickerButton] = [
-	skin_color_picker_button
+	skin_color_picker_button,
+	hat_color_picker_button,
+	#outfit_color_picker_button,
+	#ring_color_picker_button,
+	#earring_color_picker_button,
+	#shoes_color_picker_button,
 ]
 
+# Sliders for Blend Keys
 @onready var radius_h_slider = %RadiusHSlider
 @onready var h_sliders: Array[HSlider] = [
 	radius_h_slider
 ]
 
+# Lists of Accessories
+@onready var eyes: Array[MeshInstance3D] = []
+@onready var mouths: Array[MeshInstance3D] = []
+@onready var tails: Array[MeshInstance3D] = []
+@onready var outfits: Array[MeshInstance3D] = []
+@onready var hats: Array[MeshInstance3D] = [null]
+@onready var hats_prev: Button = %HatsPrev
+@onready var hats_label = %HatsLabel
+@onready var hats_next: Button = %HatsNext
+#@onready var outfits_prev: Button = %OutfitsPrev
+#@onready var outfits_label = %OutfitsLabel
+#@onready var outfits_next: Button = %OutfitsNext
+#@onready var rings_prev: Button = %RingsPrev
+#@onready var rings_label = %RingsLabel
+#@onready var rings_next: Button = %RingsNext
+#@onready var earrings_prev: Button = %EarringsPrev
+#@onready var earrings_label = %EarringsLabel
+#@onready var earrings_next: Button = %EarringsNext
+#@onready var shoes_prev: Button = %ShoesPrev
+#@onready var shoes_label = %ShoesLabel
+#@onready var shoes_next: Button = %ShoesNext
+@onready var rings: Array[MeshInstance3D] = []
+@onready var earrings: Array[MeshInstance3D] = []
+@onready var shoes: Array[MeshInstance3D] = []
+@onready var accessory_swap_buttons: Array[Button] = [
+	hats_prev, hats_next,
+	#outfits_prev, outfits_next,
+	#rings_prev, rings_next,
+	#earrings_prev, earrings_next,
+	#shoes_prev, shoes_next
+]
+
+# Buttons to Leave UI
+@onready var save_button = %SaveButton
+@onready var cancel_button = %CancelButton
+
 var materials_loaded: bool = false
+var total_hats: int
+var total_outfits: int
+var total_rings: int
+var total_earrings: int
+var total_shoes: int
+
+var current_hat_index: int = 0
+var current_outfit_index: int = 0
+var current_rings_index: int = 0
+var current_earrings_index: int = 0
+var current_shoes_index: int = 0
 
 func _ready() -> void:
 	visible = false
+	
+	# Connect color picker buttons
 	for color_picker_button in picker_buttons:
 		color_picker_button.color_changed.connect(_on_color_picked.bind(color_picker_button))
 		var color_picker: ColorPicker = color_picker_button.get_picker()
@@ -26,33 +91,138 @@ func _ready() -> void:
 		color_picker.sliders_visible = false
 		color_picker.hex_visible = false
 		color_picker.presets_visible = false
+	
+	# Connect sliders
 	for h_slider in h_sliders:
 		h_slider.value_changed.connect(_on_slider_changed.bind(h_slider))
+	
+	# Connect accessory swap buttons
+	for button in accessory_swap_buttons:
+		button.pressed.connect(_on_accessory_button_pressed.bind(button))
+	
+	# Connect UI exit buttons
+	save_button.pressed.connect(_on_save_pressed)
+	cancel_button.pressed.connect(_on_cancel_pressed)
+	
+	# Find all accessories
+	for child in elokido.get_children():
+		if child is MeshInstance3D:
+			var category: String = child.name.get_slice("_", 0)
+			child.name = child.name.get_slice("_", 1)
+			match category:
+				"Eyes": eyes.append(child)
+				"Mouth": mouths.append(child)
+				"Tail": tails.append(child)
+				"Hat": hats.append(child)
+				"Outfit": outfits.append(child)
+				"Ring": rings.append(child)
+				"Earring": earrings.append(child)
+				"Shoes": shoes.append(child)
+	
+	# Save totals separately
+	total_hats = hats.size()
+	total_outfits = outfits.size()
+	total_rings = rings.size()
+	total_earrings = earrings.size()
+	total_shoes = shoes.size()
 
 
-func _process(_delta: float) -> void:
-	pass
-
-
-func _on_color_picked(color: Color, _color_picker_button: ColorPickerButton) -> void:
-	var old_material = body.get_active_material(0) as StandardMaterial3D
+# TODO: Reduce redundancy by completing this method!
+func change_color(new_color: Color, node: MeshInstance3D) -> void:
+	if node == null:
+		return
+	var old_material = node.get_active_material(0) as StandardMaterial3D
 	if old_material:
 		var new_material = old_material.duplicate() as StandardMaterial3D
-		new_material.albedo_color = color
-		body.set_surface_override_material(0, new_material)
+		new_material.albedo_color = new_color
+		node.set_surface_override_material(0, new_material)
 	else:
 		print("No material found!")
 
 
-#func _on_color_picked(color: Color, _color_picker_button: ColorPickerButton) -> void:
-	#var old_material = player.body.get_active_material(0) as StandardMaterial3D
-	#if old_material:
-		#var new_material = old_material.duplicate() as StandardMaterial3D
-		#new_material.albedo_color = color
-		#player.body.set_surface_override_material(0, new_material)
-	#else:
-		#print("No material found!")
+func change_accessory(
+	direction: int, list: Array,
+	index: int, total: int,
+	picker: ColorPickerButton, label: Label
+) -> int:
+	var old_acc: MeshInstance3D = list[index]
+	if old_acc != null:
+		old_acc.visible = false
+	index = wrap(index + direction, 0, total)
+	var new_acc: MeshInstance3D = list[index]
+	if new_acc != null:
+		new_acc.visible = true
+		label.text = new_acc.name
+		change_color(picker.get_picker().color, new_acc)
+	else:
+		label.text = "None"
+	return index
+
+
+func revert_color(picker: ColorPickerButton, color: Color, target: MeshInstance3D) -> void:
+	picker.set_pick_color(color)
+	change_color(color, target)
+
+
+func revert_accessory(list: Array, index: int, _player_list: Array, player_index: int, _picker: ColorPickerButton, label: Label) -> int:
+	if index != player_index:
+		if list[index] != null:
+			list[index].visible = false
+		index = player_index
+		if list[index] != null:
+			list[index].visible = true
+			label.text = list[index].name
+	return index
+
+
+func fully_revert_ui() -> void:
+	revert_color(skin_color_picker_button, player.body.get_active_material(0).albedo_color, body)
+	current_hat_index = revert_accessory(hats, current_hat_index, player.hats, player.current_hat_index, hat_color_picker_button, hats_label)
+	if player.hats[current_hat_index] != null:
+		var revert_to_color: Color = player.hats[player.current_hat_index].get_active_material(0).albedo_color
+		revert_color(hat_color_picker_button, revert_to_color, hats[current_hat_index])
+
+
+func _on_color_picked(color: Color, color_picker_button: ColorPickerButton) -> void:
+	match color_picker_button:
+		skin_color_picker_button: change_color(color, body)
+		hat_color_picker_button: change_color(color, hats[current_hat_index])
 
 
 func _on_slider_changed(value: float, h_slider: HSlider) -> void:
 	print(value)
+
+
+func _on_save_pressed() -> void:
+	change_color(skin_color_picker_button.get_picker().color, player.body)
+	if player.hats[player.current_hat_index] != null:
+		player.hats[player.current_hat_index].visible = false
+	player.current_hat_index = current_hat_index
+	if player.hats[player.current_hat_index] != null:
+		player.hats[player.current_hat_index].visible = true
+	change_color(hat_color_picker_button.get_picker().color, player.hats[player.current_hat_index])
+
+
+func _on_cancel_pressed() -> void:
+	fully_revert_ui()
+
+
+func _on_accessory_button_pressed(button: Button) -> void:
+	var category: String = button.get_parent().name
+	var is_next: int = 1 if button.text == ">" else -1
+	match category:
+		"Hats":
+			current_hat_index = change_accessory(
+				is_next, hats, current_hat_index, total_hats, hat_color_picker_button, hats_label)
+		#"Outfits":
+			#current_outfit_index = change_accessory(
+				#is_next, outfits, current_outfit_index, total_outfits, outfit_color_picker_button, outfits_label)
+		#"Rings":
+			#current_ring_index = change_accessory(
+				#is_next, rings, current_ring_index, total_rings, ring_color_picker_button, rings_label)
+		#"Earrings":
+			#current_earring_index = change_accessory(
+				#is_next, earrings, current_earring_index, total_earrings, earring_color_picker_button, earrings_label)
+		#"Shoes":
+			#current_shoes_index = change_accessory(
+				#is_next, shoes, current_shoes_index, total_shoes, shoes_color_picker_button, shoes_label)
