@@ -11,17 +11,17 @@ extends Control
 # Color Picker Buttons
 @onready var skin_color_picker_button: ColorPickerButton = %SkinColorPickerButton
 @onready var hat_color_picker_button: ColorPickerButton = %HatColorPickerButton
-#@onready var outfit_color_picker_button: ColorPickerButton = %OutfitColorPickerButton
-#@onready var ring_color_picker_button: ColorPickerButton = %RingColorPickerButton
-#@onready var earring_color_picker_button: ColorPickerButton = %EarringColorPickerButton
-#@onready var shoes_color_picker_button: ColorPickerButton = %ShoesColorPickerButton
+@onready var outfit_color_picker_button: ColorPickerButton = %OutfitColorPickerButton
+@onready var ring_color_picker_button: ColorPickerButton = %RingColorPickerButton
+@onready var earring_color_picker_button: ColorPickerButton = %EarringColorPickerButton
+@onready var shoes_color_picker_button: ColorPickerButton = %ShoesColorPickerButton
 @onready var picker_buttons: Array[ColorPickerButton] = [
 	skin_color_picker_button,
 	hat_color_picker_button,
-	#outfit_color_picker_button,
-	#ring_color_picker_button,
-	#earring_color_picker_button,
-	#shoes_color_picker_button,
+	outfit_color_picker_button,
+	ring_color_picker_button,
+	earring_color_picker_button,
+	shoes_color_picker_button,
 ]
 
 # Sliders for Blend Keys
@@ -31,35 +31,35 @@ extends Control
 ]
 
 # Lists of Accessories
-@onready var eyes: Array[MeshInstance3D] = []
-@onready var mouths: Array[MeshInstance3D] = []
-@onready var tails: Array[MeshInstance3D] = []
-@onready var outfits: Array[MeshInstance3D] = []
-@onready var hats: Array[MeshInstance3D] = [null]
 @onready var hats_prev: Button = %HatsPrev
 @onready var hats_label = %HatsLabel
 @onready var hats_next: Button = %HatsNext
-#@onready var outfits_prev: Button = %OutfitsPrev
-#@onready var outfits_label = %OutfitsLabel
-#@onready var outfits_next: Button = %OutfitsNext
-#@onready var rings_prev: Button = %RingsPrev
-#@onready var rings_label = %RingsLabel
-#@onready var rings_next: Button = %RingsNext
-#@onready var earrings_prev: Button = %EarringsPrev
-#@onready var earrings_label = %EarringsLabel
-#@onready var earrings_next: Button = %EarringsNext
-#@onready var shoes_prev: Button = %ShoesPrev
-#@onready var shoes_label = %ShoesLabel
-#@onready var shoes_next: Button = %ShoesNext
-@onready var rings: Array[MeshInstance3D] = []
-@onready var earrings: Array[MeshInstance3D] = []
-@onready var shoes: Array[MeshInstance3D] = []
+@onready var outfits_prev: Button = %OutfitsPrev
+@onready var outfits_label = %OutfitsLabel
+@onready var outfits_next: Button = %OutfitsNext
+@onready var rings_prev: Button = %RingsPrev
+@onready var rings_label = %RingsLabel
+@onready var rings_next: Button = %RingsNext
+@onready var earrings_prev: Button = %EarringsPrev
+@onready var earrings_label = %EarringsLabel
+@onready var earrings_next: Button = %EarringsNext
+@onready var shoes_prev: Button = %ShoesPrev
+@onready var shoes_label = %ShoesLabel
+@onready var shoes_next: Button = %ShoesNext
+@onready var eyes: Array[MeshInstance3D] = [null]
+@onready var mouths: Array[MeshInstance3D] = [null]
+@onready var tails: Array[MeshInstance3D] = [null]
+@onready var hats: Array[MeshInstance3D] = [null]
+@onready var outfits: Array[MeshInstance3D] = [null]
+@onready var rings: Array[MeshInstance3D] = [null]
+@onready var earrings: Array[MeshInstance3D] = [null]
+@onready var shoes: Array[MeshInstance3D] = [null]
 @onready var accessory_swap_buttons: Array[Button] = [
 	hats_prev, hats_next,
-	#outfits_prev, outfits_next,
-	#rings_prev, rings_next,
-	#earrings_prev, earrings_next,
-	#shoes_prev, shoes_next
+	outfits_prev, outfits_next,
+	rings_prev, rings_next,
+	earrings_prev, earrings_next,
+	shoes_prev, shoes_next
 ]
 
 # Buttons to Leave UI
@@ -75,8 +75,8 @@ var total_shoes: int
 
 var current_hat_index: int = 0
 var current_outfit_index: int = 0
-var current_rings_index: int = 0
-var current_earrings_index: int = 0
+var current_ring_index: int = 0
+var current_earring_index: int = 0
 var current_shoes_index: int = 0
 
 func _ready() -> void:
@@ -127,7 +127,6 @@ func _ready() -> void:
 	total_shoes = shoes.size()
 
 
-# TODO: Reduce redundancy by completing this method!
 func change_color(new_color: Color, node: MeshInstance3D) -> void:
 	if node == null:
 		return
@@ -181,12 +180,32 @@ func fully_revert_ui() -> void:
 	if player.hats[current_hat_index] != null:
 		var revert_to_color: Color = player.hats[player.current_hat_index].get_active_material(0).albedo_color
 		revert_color(hat_color_picker_button, revert_to_color, hats[current_hat_index])
+	current_outfit_index = revert_accessory(outfits, current_outfit_index, player.outfits, player.current_outfit_index, outfit_color_picker_button, outfits_label)
+	if player.outfits[current_outfit_index] != null:
+		var revert_to_color: Color = player.outfits[player.current_outfit_index].get_active_material(0).albedo_color
+		revert_color(outfit_color_picker_button, revert_to_color, outfits[current_outfit_index])
+	current_ring_index = revert_accessory(rings, current_ring_index, player.rings, player.current_ring_index, ring_color_picker_button, rings_label)
+	if player.rings[current_ring_index] != null:
+		var revert_to_color: Color = player.rings[player.current_ring_index].get_active_material(0).albedo_color
+		revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
+	current_earring_index = revert_accessory(earrings, current_earring_index, player.earrings, player.current_earring_index, earring_color_picker_button, earrings_label)
+	if player.earrings[current_earring_index] != null:
+		var revert_to_color: Color = player.earrings[player.current_earring_index].get_active_material(0).albedo_color
+		revert_color(earring_color_picker_button, revert_to_color, earrings[current_earring_index])
+	current_shoes_index = revert_accessory(shoes, current_shoes_index, player.shoes, player.current_shoes_index, shoes_color_picker_button, shoes_label)
+	if player.shoes[current_shoes_index] != null:
+		var revert_to_color: Color = player.shoes[player.current_shoes_index].get_active_material(0).albedo_color
+		revert_color(shoes_color_picker_button, revert_to_color, shoes[current_shoes_index])
 
 
 func _on_color_picked(color: Color, color_picker_button: ColorPickerButton) -> void:
 	match color_picker_button:
 		skin_color_picker_button: change_color(color, body)
 		hat_color_picker_button: change_color(color, hats[current_hat_index])
+		outfit_color_picker_button: change_color(color, outfits[current_outfit_index])
+		ring_color_picker_button: change_color(color, rings[current_ring_index])
+		earring_color_picker_button: change_color(color, earrings[current_earring_index])
+		shoes_color_picker_button: change_color(color, shoes[current_shoes_index])
 
 
 func _on_slider_changed(value: float, h_slider: HSlider) -> void:
@@ -201,7 +220,30 @@ func _on_save_pressed() -> void:
 	if player.hats[player.current_hat_index] != null:
 		player.hats[player.current_hat_index].visible = true
 	change_color(hat_color_picker_button.get_picker().color, player.hats[player.current_hat_index])
-
+	if player.outfits[player.current_outfit_index] != null:
+		player.outfits[player.current_outfit_index].visible = false
+	player.current_outfit_index = current_outfit_index
+	if player.outfits[player.current_outfit_index] != null:
+		player.outfits[player.current_outfit_index].visible = true
+	change_color(outfit_color_picker_button.get_picker().color, player.outfits[player.current_outfit_index])
+	if player.rings[player.current_ring_index] != null:
+		player.rings[player.current_ring_index].visible = false
+	player.current_ring_index = current_ring_index
+	if player.rings[player.current_ring_index] != null:
+		player.rings[player.current_ring_index].visible = true
+	change_color(ring_color_picker_button.get_picker().color, player.rings[player.current_ring_index])
+	if player.earrings[player.current_earring_index] != null:
+		player.earrings[player.current_earring_index].visible = false
+	player.current_earring_index = current_earring_index
+	if player.earrings[player.current_earring_index] != null:
+		player.earrings[player.current_earring_index].visible = true
+	change_color(earring_color_picker_button.get_picker().color, player.earrings[player.current_earring_index])
+	if player.shoes[player.current_shoes_index] != null:
+		player.shoes[player.current_shoes_index].visible = false
+	player.current_shoes_index = current_shoes_index
+	if player.shoes[player.current_shoes_index] != null:
+		player.shoes[player.current_shoes_index].visible = true
+	change_color(shoes_color_picker_button.get_picker().color, player.shoes[player.current_shoes_index])
 
 func _on_cancel_pressed() -> void:
 	fully_revert_ui()
@@ -214,15 +256,15 @@ func _on_accessory_button_pressed(button: Button) -> void:
 		"Hats":
 			current_hat_index = change_accessory(
 				is_next, hats, current_hat_index, total_hats, hat_color_picker_button, hats_label)
-		#"Outfits":
-			#current_outfit_index = change_accessory(
-				#is_next, outfits, current_outfit_index, total_outfits, outfit_color_picker_button, outfits_label)
-		#"Rings":
-			#current_ring_index = change_accessory(
-				#is_next, rings, current_ring_index, total_rings, ring_color_picker_button, rings_label)
-		#"Earrings":
-			#current_earring_index = change_accessory(
-				#is_next, earrings, current_earring_index, total_earrings, earring_color_picker_button, earrings_label)
-		#"Shoes":
-			#current_shoes_index = change_accessory(
-				#is_next, shoes, current_shoes_index, total_shoes, shoes_color_picker_button, shoes_label)
+		"Outfits":
+			current_outfit_index = change_accessory(
+				is_next, outfits, current_outfit_index, total_outfits, outfit_color_picker_button, outfits_label)
+		"Rings":
+			current_ring_index = change_accessory(
+				is_next, rings, current_ring_index, total_rings, ring_color_picker_button, rings_label)
+		"Earrings":
+			current_earring_index = change_accessory(
+				is_next, earrings, current_earring_index, total_earrings, earring_color_picker_button, earrings_label)
+		"Shoes":
+			current_shoes_index = change_accessory(
+				is_next, shoes, current_shoes_index, total_shoes, shoes_color_picker_button, shoes_label)

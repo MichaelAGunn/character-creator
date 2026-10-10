@@ -541,6 +541,7 @@ layout_mode = 2
 text = "Outfits"
 
 [node name="OutfitsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=1429599418]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "<"
@@ -550,6 +551,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="OutfitsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits/Panel" unique_id=1540228760]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -565,6 +567,7 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="OutfitsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=223552771]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = ">"
@@ -593,6 +596,7 @@ layout_mode = 2
 text = "Rings"
 
 [node name="RingsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings" unique_id=2133044492]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "<"
@@ -602,6 +606,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RingsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings/Panel" unique_id=388002726]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -617,6 +622,7 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="RingsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings" unique_id=952884865]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = ">"
@@ -645,6 +651,7 @@ layout_mode = 2
 text = "Earrings"
 
 [node name="EarringsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings" unique_id=227636276]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "<"
@@ -654,6 +661,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="EarringsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings/Panel" unique_id=1785360213]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -669,6 +677,7 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="EarringsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings" unique_id=9379513]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = ">"
@@ -697,6 +706,7 @@ layout_mode = 2
 text = "Shoes"
 
 [node name="ShoesPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes" unique_id=1130969645]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "<"
@@ -706,6 +716,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ShoesLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes/Panel" unique_id=690150575]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -720,6 +731,7 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="ShoesNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes" unique_id=83780348]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = ">"

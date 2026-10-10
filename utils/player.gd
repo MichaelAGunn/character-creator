@@ -27,8 +27,8 @@ var total_shoes: int
 
 var current_hat_index: int = 0
 var current_outfit_index: int = 0
-var current_rings_index: int = 0
-var current_earrings_index: int = 0
+var current_ring_index: int = 0
+var current_earring_index: int = 0
 var current_shoes_index: int = 0
 
 func _ready() -> void:
