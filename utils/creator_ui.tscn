@@ -457,8 +457,8 @@ text = "Skin Colour"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
-size_flags_horizontal = 10
-color = Color(0.728822, 0.728822, 0.728822, 1)
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
 edit_alpha = false
 edit_intensity = false
 
@@ -499,12 +499,9 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -24.5
-offset_bottom = 24.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "None"
@@ -532,8 +529,215 @@ text = "Hat Colour"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
-size_flags_horizontal = 10
-color = Color(0.7294118, 0.7294118, 0.7294118, 1)
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
+
+[node name="Outfits" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=129809493]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=708154398]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Outfits"
+
+[node name="OutfitsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=1429599418]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<"
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=1796474329]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OutfitsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits/Panel" unique_id=1540228760]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "None"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="OutfitsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=223552771]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="OutfitColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=160914983]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/OutfitColor" unique_id=719352182]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Outfit Colour"
+
+[node name="OutfitColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/OutfitColor" unique_id=892867674]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
+
+[node name="Rings" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=135334599]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings" unique_id=19466656]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Rings"
+
+[node name="RingsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings" unique_id=2133044492]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<"
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings" unique_id=1424191982]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RingsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings/Panel" unique_id=388002726]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "None"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="RingsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Rings" unique_id=952884865]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="RingColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1391058524]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/RingColor" unique_id=621817916]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Ring Colour"
+
+[node name="RingColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/RingColor" unique_id=170666771]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
+
+[node name="Earrings" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1699714131]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings" unique_id=185095671]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Earrings"
+
+[node name="EarringsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings" unique_id=227636276]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<"
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings" unique_id=1613453549]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EarringsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings/Panel" unique_id=1785360213]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "None"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="EarringsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Earrings" unique_id=9379513]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="EarringColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=467930525]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/EarringColor" unique_id=1652460749]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Earring Colour"
+
+[node name="EarringColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/EarringColor" unique_id=1112776712]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
+
+[node name="Shoes" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1451489599]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes" unique_id=521009529]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Shoes"
+
+[node name="ShoesPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes" unique_id=1130969645]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<"
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes" unique_id=851945745]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShoesLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes/Panel" unique_id=690150575]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "None"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="ShoesNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shoes" unique_id=83780348]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="ShoeColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=113733832]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/ShoeColor" unique_id=1611984244]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Shoe Colour"
+
+[node name="ShoesColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/ShoeColor" unique_id=1426629666]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
 
 [node name="MenuButtons" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1063280777]
 layout_mode = 2
