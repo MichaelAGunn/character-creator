@@ -9,18 +9,18 @@ extends Control
 @onready var camera: Camera3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/Camera3D
 
 # Color Picker Buttons
-@onready var eye_color_picker_button = %EyeColorPickerButton
-@onready var pupil_color_picker_button = %PupilColorPickerButton
 @onready var skin_color_picker_button: ColorPickerButton = %SkinColorPickerButton
+@onready var eye_color_picker_button: ColorPickerButton = %EyeColorPickerButton
+@onready var pupil_color_picker_button: ColorPickerButton = %PupilColorPickerButton
 @onready var hat_color_picker_button: ColorPickerButton = %HatColorPickerButton
 @onready var outfit_color_picker_button: ColorPickerButton = %OutfitColorPickerButton
 @onready var ring_color_picker_button: ColorPickerButton = %RingColorPickerButton
 @onready var earring_color_picker_button: ColorPickerButton = %EarringColorPickerButton
 @onready var shoes_color_picker_button: ColorPickerButton = %ShoesColorPickerButton
 @onready var picker_buttons: Array[ColorPickerButton] = [
+	skin_color_picker_button,
 	eye_color_picker_button,
 	pupil_color_picker_button,
-	skin_color_picker_button,
 	hat_color_picker_button,
 	outfit_color_picker_button,
 	ring_color_picker_button,
@@ -156,11 +156,7 @@ func change_color(new_color: Color, node: MeshInstance3D, slot: int = 0) -> void
 		print("No material found!")
 
 
-func change_accessory(
-	direction: int, list: Array,
-	index: int, total: int,
-	picker: ColorPickerButton, label: Label
-) -> int:
+func change_accessory( direction: int, list: Array, index: int, total: int, picker: ColorPickerButton, label: Label, picker2: ColorPickerButton = null) -> int:
 	var old_acc: MeshInstance3D = list[index]
 	if old_acc != null:
 		old_acc.visible = false
@@ -171,6 +167,8 @@ func change_accessory(
 		label.text = new_acc.name
 		change_color(picker.get_picker().color, new_acc)
 		# TODO: Add second colour to eyes!
+		if new_acc.mesh.get_surface_count() > 1:
+			change_color(picker2.get_picker().color, new_acc, 1)
 	else:
 		label.text = "None"
 	return index
@@ -292,7 +290,7 @@ func _on_accessory_button_pressed(button: Button) -> void:
 	match category:
 		"Eyes":
 			current_eyes_index = change_accessory(
-				is_next, eyes, current_eyes_index, total_eyes, eye_color_picker_button, eyes_label)
+				is_next, eyes, current_eyes_index, total_eyes, eye_color_picker_button, eyes_label, pupil_color_picker_button)
 		"Hats":
 			current_hat_index = change_accessory(
 				is_next, hats, current_hat_index, total_hats, hat_color_picker_button, hats_label)
