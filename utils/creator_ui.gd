@@ -3,12 +3,14 @@ extends Control
 @export var player: Player
 
 # Subviewport Assets
-@onready var elokido: Node3D = %elokido # Iterate through children to find acdessory meshes
+@onready var skeleton = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D
 @onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D/Mesh#$MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D/MaleMesh
 @onready var sub_viewport = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport
 @onready var camera: Camera3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/Camera3D
 
 # Color Picker Buttons
+@onready var eye_color_picker_button = %EyeColorPickerButton
+@onready var pupil_color_picker_button = %PupilColorPickerButton
 @onready var skin_color_picker_button: ColorPickerButton = %SkinColorPickerButton
 @onready var hat_color_picker_button: ColorPickerButton = %HatColorPickerButton
 @onready var outfit_color_picker_button: ColorPickerButton = %OutfitColorPickerButton
@@ -16,6 +18,8 @@ extends Control
 @onready var earring_color_picker_button: ColorPickerButton = %EarringColorPickerButton
 @onready var shoes_color_picker_button: ColorPickerButton = %ShoesColorPickerButton
 @onready var picker_buttons: Array[ColorPickerButton] = [
+	eye_color_picker_button,
+	pupil_color_picker_button,
 	skin_color_picker_button,
 	hat_color_picker_button,
 	outfit_color_picker_button,
@@ -31,6 +35,9 @@ extends Control
 ]
 
 # Lists of Accessories
+@onready var eyes_prev = %EyesPrev
+@onready var eyes_label = %EyesLabel
+@onready var eyes_next = %EyesNext
 @onready var hats_prev: Button = %HatsPrev
 @onready var hats_label = %HatsLabel
 @onready var hats_next: Button = %HatsNext
@@ -55,6 +62,7 @@ extends Control
 @onready var earrings: Array[MeshInstance3D] = [null]
 @onready var shoes: Array[MeshInstance3D] = [null]
 @onready var accessory_swap_buttons: Array[Button] = [
+	eyes_prev, eyes_next,
 	hats_prev, hats_next,
 	outfits_prev, outfits_next,
 	rings_prev, rings_next,
@@ -67,20 +75,26 @@ extends Control
 @onready var cancel_button = %CancelButton
 
 var materials_loaded: bool = false
+
+var total_eyes: int
 var total_hats: int
 var total_outfits: int
 var total_rings: int
 var total_earrings: int
 var total_shoes: int
 
+var current_eyes_index: int = 0
 var current_hat_index: int = 0
 var current_outfit_index: int = 0
 var current_ring_index: int = 0
 var current_earring_index: int = 0
 var current_shoes_index: int = 0
 
+signal saved
+
 func _ready() -> void:
 	visible = false
+	body.visible = false
 	
 	# Connect color picker buttons
 	for color_picker_button in picker_buttons:
@@ -105,10 +119,12 @@ func _ready() -> void:
 	cancel_button.pressed.connect(_on_cancel_pressed)
 	
 	# Find all accessories
-	for child in elokido.get_children():
+	for child in skeleton.get_children():
 		if child is MeshInstance3D:
 			var category: String = child.name.get_slice("_", 0)
-			child.name = child.name.get_slice("_", 1)
+			if child.name != "Mesh":
+				child.name = child.name.get_slice("_", 1)
+				child.visible = false
 			match category:
 				"Eyes": eyes.append(child)
 				"Mouth": mouths.append(child)
@@ -125,16 +141,17 @@ func _ready() -> void:
 	total_rings = rings.size()
 	total_earrings = earrings.size()
 	total_shoes = shoes.size()
+	total_eyes = eyes.size()
 
 
-func change_color(new_color: Color, node: MeshInstance3D) -> void:
+func change_color(new_color: Color, node: MeshInstance3D, slot: int = 0) -> void:
 	if node == null:
 		return
-	var old_material = node.get_active_material(0) as StandardMaterial3D
+	var old_material = node.get_active_material(slot) as StandardMaterial3D
 	if old_material:
 		var new_material = old_material.duplicate() as StandardMaterial3D
 		new_material.albedo_color = new_color
-		node.set_surface_override_material(0, new_material)
+		node.set_surface_override_material(slot, new_material)
 	else:
 		print("No material found!")
 
@@ -153,14 +170,15 @@ func change_accessory(
 		new_acc.visible = true
 		label.text = new_acc.name
 		change_color(picker.get_picker().color, new_acc)
+		# TODO: Add second colour to eyes!
 	else:
 		label.text = "None"
 	return index
 
 
-func revert_color(picker: ColorPickerButton, color: Color, target: MeshInstance3D) -> void:
+func revert_color(picker: ColorPickerButton, color: Color, target: MeshInstance3D, slot: int = 0) -> void:
 	picker.set_pick_color(color)
-	change_color(color, target)
+	change_color(color, target, slot)
 
 
 func revert_accessory(list: Array, index: int, _player_list: Array, player_index: int, _picker: ColorPickerButton, label: Label) -> int:
@@ -175,32 +193,41 @@ func revert_accessory(list: Array, index: int, _player_list: Array, player_index
 
 
 func fully_revert_ui() -> void:
-	revert_color(skin_color_picker_button, player.body.get_active_material(0).albedo_color, body)
+	var revert_to_color: Color = player.body.get_active_material(0).albedo_color
+	revert_color(skin_color_picker_button, revert_to_color, body)
+	current_eyes_index = revert_accessory(eyes, current_eyes_index, player.eyes, player.current_eyes_index, eye_color_picker_button, eyes_label)
+	if player.eyes[current_eyes_index] != null:
+		revert_to_color = player.eyes[player.current_eyes_index].get_active_material(0).albedo_color
+		revert_color(hat_color_picker_button, revert_to_color, hats[current_hat_index])
+		revert_to_color = player.eyes[player.current_eyes_index].get_active_material(1).albedo_color
+		revert_color(pupil_color_picker_button, revert_to_color, eyes[current_eyes_index], 1)
 	current_hat_index = revert_accessory(hats, current_hat_index, player.hats, player.current_hat_index, hat_color_picker_button, hats_label)
 	if player.hats[current_hat_index] != null:
-		var revert_to_color: Color = player.hats[player.current_hat_index].get_active_material(0).albedo_color
+		revert_to_color = player.hats[player.current_hat_index].get_active_material(0).albedo_color
 		revert_color(hat_color_picker_button, revert_to_color, hats[current_hat_index])
 	current_outfit_index = revert_accessory(outfits, current_outfit_index, player.outfits, player.current_outfit_index, outfit_color_picker_button, outfits_label)
 	if player.outfits[current_outfit_index] != null:
-		var revert_to_color: Color = player.outfits[player.current_outfit_index].get_active_material(0).albedo_color
+		revert_to_color = player.outfits[player.current_outfit_index].get_active_material(0).albedo_color
 		revert_color(outfit_color_picker_button, revert_to_color, outfits[current_outfit_index])
 	current_ring_index = revert_accessory(rings, current_ring_index, player.rings, player.current_ring_index, ring_color_picker_button, rings_label)
 	if player.rings[current_ring_index] != null:
-		var revert_to_color: Color = player.rings[player.current_ring_index].get_active_material(0).albedo_color
+		revert_to_color = player.rings[player.current_ring_index].get_active_material(0).albedo_color
 		revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
 	current_earring_index = revert_accessory(earrings, current_earring_index, player.earrings, player.current_earring_index, earring_color_picker_button, earrings_label)
 	if player.earrings[current_earring_index] != null:
-		var revert_to_color: Color = player.earrings[player.current_earring_index].get_active_material(0).albedo_color
+		revert_to_color = player.earrings[player.current_earring_index].get_active_material(0).albedo_color
 		revert_color(earring_color_picker_button, revert_to_color, earrings[current_earring_index])
 	current_shoes_index = revert_accessory(shoes, current_shoes_index, player.shoes, player.current_shoes_index, shoes_color_picker_button, shoes_label)
 	if player.shoes[current_shoes_index] != null:
-		var revert_to_color: Color = player.shoes[player.current_shoes_index].get_active_material(0).albedo_color
+		revert_to_color = player.shoes[player.current_shoes_index].get_active_material(0).albedo_color
 		revert_color(shoes_color_picker_button, revert_to_color, shoes[current_shoes_index])
 
 
 func _on_color_picked(color: Color, color_picker_button: ColorPickerButton) -> void:
 	match color_picker_button:
 		skin_color_picker_button: change_color(color, body)
+		eye_color_picker_button: change_color(color, eyes[current_eyes_index])
+		pupil_color_picker_button: change_color(color, eyes[current_eyes_index], 1)
 		hat_color_picker_button: change_color(color, hats[current_hat_index])
 		outfit_color_picker_button: change_color(color, outfits[current_outfit_index])
 		ring_color_picker_button: change_color(color, rings[current_ring_index])
@@ -213,7 +240,15 @@ func _on_slider_changed(value: float, h_slider: HSlider) -> void:
 
 
 func _on_save_pressed() -> void:
+	# TODO: Reduce redundancy (which seems impossible atm)
 	change_color(skin_color_picker_button.get_picker().color, player.body)
+	if player.eyes[player.current_eyes_index] != null:
+		player.eyes[player.current_eyes_index].visible = false
+	player.current_eyes_index = current_eyes_index
+	if player.eyes[player.current_eyes_index] != null:
+		player.eyes[player.current_eyes_index].visible = true
+	change_color(eye_color_picker_button.get_picker().color, player.eyes[player.current_eyes_index])
+	change_color(pupil_color_picker_button.get_picker().color, player.eyes[player.current_eyes_index], 1)
 	if player.hats[player.current_hat_index] != null:
 		player.hats[player.current_hat_index].visible = false
 	player.current_hat_index = current_hat_index
@@ -244,6 +279,8 @@ func _on_save_pressed() -> void:
 	if player.shoes[player.current_shoes_index] != null:
 		player.shoes[player.current_shoes_index].visible = true
 	change_color(shoes_color_picker_button.get_picker().color, player.shoes[player.current_shoes_index])
+	saved.emit()
+
 
 func _on_cancel_pressed() -> void:
 	fully_revert_ui()
@@ -253,6 +290,9 @@ func _on_accessory_button_pressed(button: Button) -> void:
 	var category: String = button.get_parent().name
 	var is_next: int = 1 if button.text == ">" else -1
 	match category:
+		"Eyes":
+			current_eyes_index = change_accessory(
+				is_next, eyes, current_eyes_index, total_eyes, eye_color_picker_button, eyes_label)
 		"Hats":
 			current_hat_index = change_accessory(
 				is_next, hats, current_hat_index, total_hats, hat_color_picker_button, hats_label)
