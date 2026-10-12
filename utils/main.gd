@@ -5,6 +5,12 @@ extends Node3D
 
 var never_ui: bool = true
 
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	set_process_input(true)
+	set_process_unhandled_input(true)
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		# Open and close UI; first time connects buttons
@@ -23,11 +29,13 @@ func toggle_ui() -> void:
 	if player.camera.current:
 		creator_ui.camera.make_current()
 		player.camera.clear_current()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif creator_ui.camera.current:
 		creator_ui._on_cancel_pressed()
 		player.camera.clear_current()
 		player.camera.make_current()
 		creator_ui.fully_revert_ui()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _on_save_pressed() -> void:

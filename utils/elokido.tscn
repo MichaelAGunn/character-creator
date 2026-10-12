@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b8o50pjj2cojn"]
+
+[ext_resource type="PackedScene" uid="uid://2wbdr1vssibu" path="res://models/elokido.glb" id="1_d4uaj"]
+
+[node name="elokido" unique_id=417521309 instance=ExtResource("1_d4uaj")]

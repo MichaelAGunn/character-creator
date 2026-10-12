@@ -5,3 +5,5 @@
 
 # Blender 5+ specific ignores
 *.blend1
+*.glb
+*.glb.import
