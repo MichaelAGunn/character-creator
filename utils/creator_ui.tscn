@@ -258,25 +258,25 @@ layout_mode = 2
 size_flags_horizontal = 6
 color = Color(1, 1, 1, 1)
 
-[node name="Outfits" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=129809493]
+[node name="Shirts" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=129809493]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=708154398]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shirts" unique_id=708154398]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "Outfits"
+text = "Shirts"
 
-[node name="OutfitsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=1429599418]
+[node name="ShirtsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shirts" unique_id=1429599418]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "<"
 
-[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=1796474329]
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shirts" unique_id=1796474329]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OutfitsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits/Panel" unique_id=1540228760]
+[node name="ShirtsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shirts/Panel" unique_id=1540228760]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
@@ -292,21 +292,82 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="OutfitsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Outfits" unique_id=223552771]
+[node name="ShirtsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Shirts" unique_id=223552771]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = ">"
 
-[node name="OutfitColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=160914983]
+[node name="ShirtColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=160914983]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/OutfitColor" unique_id=719352182]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/ShirtColor" unique_id=719352182]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "Outfit Colour"
+text = "Shirt Colour"
 
-[node name="OutfitColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/OutfitColor" unique_id=892867674]
+[node name="ShirtColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/ShirtColor" unique_id=892867674]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
+
+[node name="Pants" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1340367266]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Pants" unique_id=853643998]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Pants"
+
+[node name="PantsPrev" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Pants" unique_id=1346816206]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<"
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Pants" unique_id=466628188]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PantsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Pants/Panel" unique_id=590161034]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -11.5
+offset_right = 100.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "None"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PantsNext" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Pants" unique_id=1067556781]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="PantsColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=884543496]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/PantsColor" unique_id=2137954979]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Pants Colour"
+
+[node name="PantsColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/PantsColor" unique_id=780349779]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
@@ -362,6 +423,21 @@ layout_mode = 2
 text = "Ring Colour"
 
 [node name="RingColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/RingColor" unique_id=170666771]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(1, 1, 1, 1)
+
+[node name="GemColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=977133791]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/GemColor" unique_id=1137189698]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Gem Colour"
+
+[node name="GemColorPickerButton" type="ColorPickerButton" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/GemColor" unique_id=664865528]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
@@ -533,20 +609,18 @@ anim_player = NodePath("../elokido/AnimationPlayer")
 
 [node name="elokido" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport" unique_id=417521309 instance=ExtResource("2_cew4c")]
 
-[node name="Skeleton3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1930996316) index="0" unique_id=91921908]
-bones/0/position = Vector3(-0.03439193, 0, 0)
-bones/0/rotation = Quaternion(0, 0, -0.049312357, 0.99878347)
-bones/1/position = Vector3(0, 0.33948404, 0.0010631836)
-bones/1/rotation = Quaternion(-0.003582965, 0, 0, 0.99999356)
-bones/2/rotation = Quaternion(0.7042318, 0.26631996, 0.60644627, -0.2556449)
-bones/3/rotation = Quaternion(0.054849427, 0.047888935, 0.0012405461, 0.9973449)
-bones/5/rotation = Quaternion(0.676661, -0.26836017, -0.6386335, -0.24951948)
-bones/6/rotation = Quaternion(0.05485986, -0.046964306, -0.0025191007, 0.99738586)
-bones/8/rotation = Quaternion(0.0035821204, -7.783574e-05, 0.021721805, 0.99975765)
-bones/10/rotation = Quaternion(0.9884647, 0.1513993, 0.0014947753, -0.0036875452)
-bones/11/rotation = Quaternion(-0.48190743, -0.006914739, 0.046889547, 0.8749394)
-bones/13/rotation = Quaternion(0.9997461, -0.022222131, -0.0010427863, -0.0036035106)
-bones/14/rotation = Quaternion(-0.48511362, -0.03370775, -0.06906685, 0.87106735)
+[node name="Skeleton3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1706769269) index="0" unique_id=84560279]
+bones/0/position = Vector3(0.033131793, 0, 0)
+bones/0/rotation = Quaternion(0, 0, 0.047482032, 0.9988721)
+bones/2/rotation = Quaternion(0.6505127, 0.2057078, 0.64328253, -0.34742656)
+bones/3/rotation = Quaternion(-0.12101957, -0.05350844, -0.17153655, 0.9762512)
+bones/5/rotation = Quaternion(-0.60672003, 0.22876658, 0.69106585, 0.31935036)
+bones/6/rotation = Quaternion(-0.14622423, 0.048062213, 0.15775682, 0.97540826)
+bones/8/rotation = Quaternion(0.075155355, 0.0025664195, -0.034031585, 0.9965877)
+bones/10/rotation = Quaternion(0.9836923, 0.028324924, -0.013054672, -0.17713541)
+bones/11/rotation = Quaternion(-0.20517395, 0.41640761, -0.43816626, 0.76975244)
+bones/13/rotation = Quaternion(0.9724508, -0.15069313, -0.009115706, -0.17761756)
+bones/14/rotation = Quaternion(-0.2052848, -0.41627553, 0.43828753, 0.7697252)
 
 [connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor/SkinColorPickerButton" to="." method="_on_skin_color_picker_button_color_changed"]
 

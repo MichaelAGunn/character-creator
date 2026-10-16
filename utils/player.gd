@@ -5,6 +5,8 @@ const SPEED: float = 5.0
 const ACCELERATION: float = 12.0
 const ROTATION: float = 10.0
 
+const TOON = preload("uid://dvnq1gtre07ho")
+
 @onready var skeleton = $elokido/Rig/Skeleton3D
 @onready var body: MeshInstance3D = $elokido/Rig/Skeleton3D/Mesh
 @onready var collision: CollisionShape3D = $Collision
@@ -18,7 +20,8 @@ const ROTATION: float = 10.0
 @onready var eyes: Array[MeshInstance3D] = [null]
 @onready var mouths: Array[MeshInstance3D] = [null]
 @onready var tails: Array[MeshInstance3D] = [null]
-@onready var outfits: Array[MeshInstance3D] = [null]
+@onready var shirts: Array[MeshInstance3D] = [null]
+@onready var pants: Array[MeshInstance3D] = [null]
 @onready var hats: Array[MeshInstance3D] = [null]
 @onready var rings: Array[MeshInstance3D] = [null]
 @onready var earrings: Array[MeshInstance3D] = [null]
@@ -26,14 +29,16 @@ const ROTATION: float = 10.0
 
 var total_eyes: int
 var total_hats: int
-var total_outfits: int
+var total_shirts: int
+var total_pants: int
 var total_rings: int
 var total_earrings: int
 var total_shoes: int
 
 var current_eyes_index: int = 0
 var current_hat_index: int = 0
-var current_outfit_index: int = 0
+var current_shirt_index: int = 0
+var current_pants_index: int = 0
 var current_ring_index: int = 0
 var current_earring_index: int = 0
 var current_shoes_index: int = 0
@@ -45,9 +50,16 @@ var _mouse_input_direction := Vector2.ZERO
 
 func _ready() -> void:
 	creator_ui.saved.connect(_on_ui_saved)
+	var shader := ShaderMaterial.new()
+	shader.shader = TOON
+	shader.set_shader_parameter("use_stepped", false)
 	# Find all accessories
 	for child in skeleton.get_children():
 		if child is MeshInstance3D:
+			# Apply shader material
+			for surface in range(child.get_surface_override_material_count()):
+				child.set_surface_override_material(surface, shader.duplicate())
+			# Sort the accessories
 			var category: String = child.name.get_slice("_", 0)
 			if child.name != "Mesh":
 				child.name = child.name.get_slice("_", 1)
@@ -57,12 +69,14 @@ func _ready() -> void:
 				"Mouth": mouths.append(child)
 				"Tail": tails.append(child)
 				"Hat": hats.append(child)
-				"Outfit": outfits.append(child)
+				"Shirt": shirts.append(child)
+				"Pants": pants.append(child)
 				"Ring": rings.append(child)
 				"Earring": earrings.append(child)
 				"Shoes": shoes.append(child)
 	total_hats = hats.size()
-	total_outfits = outfits.size()
+	total_shirts = shirts.size()
+	total_pants = pants.size()
 	total_rings = rings.size()
 	total_earrings = rings.size()
 	total_shoes = shoes.size()

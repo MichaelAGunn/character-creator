@@ -2,19 +2,47 @@
 
 [ext_resource type="Script" uid="uid://dmvaudav2q4p" path="res://utils/main.gd" id="1_r314e"]
 [ext_resource type="PackedScene" uid="uid://di0ivoscrg4kr" path="res://utils/player.tscn" id="2_1fxhy"]
+[ext_resource type="Shader" uid="uid://c3kh6mvqg42ia" path="res://shaders/sky.gdshader" id="2_ur1xi"]
 [ext_resource type="PackedScene" uid="uid://b2s483v0wqrns" path="res://utils/creator_ui.tscn" id="3_1fxhy"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1fxhy"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjfdf"]
+shader = ExtResource("2_ur1xi")
+shader_parameter/back_color_top = Color(0.12, 0.4, 0.66, 1)
+shader_parameter/back_color_bottom = Color(0.34, 0.75, 0.92, 1)
+shader_parameter/sun_size = 0.00939999976218
+shader_parameter/sun_softness = 0.0
+shader_parameter/sun_glow_size = 0.298000014155
+shader_parameter/sun_color = Color(1, 1, 0, 1)
+shader_parameter/sun_glow_color = Color(1, 1, 1, 0.15)
+shader_parameter/hor_height_min = 0.05
+shader_parameter/hor_height_max = 0.2
+shader_parameter/hor_color_mix = Color(1, 1, 1, 0.125)
+shader_parameter/hor_color_add = Color(1, 1, 1, 0.125)
+shader_parameter/cloud_hor_start = 0.25
+shader_parameter/cloud_hor_end = 0.5
+shader_parameter/cloud_hor_scale = Vector2(2, 2)
+shader_parameter/cloud_top_start = 0.6
+shader_parameter/cloud_top_end = 0.7
+shader_parameter/cloud_top_scale = 0.5
+shader_parameter/clouds_power = 3.0
+shader_parameter/cloud_transtion_start = 0.8
+shader_parameter/cloud_transtion_end = 0.9
+shader_parameter/cloud_color_bright = Color(0.7176471, 0.8117647, 0.8117647, 1)
+shader_parameter/cloud_color_dark = Color(0.64705884, 0.9019608, 1, 1)
+shader_parameter/cloud_color_edges_mix = Color(0.5803922, 0.5803922, 0.73333335, 1)
+shader_parameter/cloud_color_edges_add = Color(0.4, 0.50980395, 0.58431375, 1)
+shader_parameter/cloud_edges = 0.9
+shader_parameter/hor_speed = 0.3
+shader_parameter/hor_layer0_speed_mult = 0.05
+shader_parameter/hor_layer1_speed_mult = 0.1
+shader_parameter/top_speed = 0.1
 
 [sub_resource type="Sky" id="Sky_ur1xi"]
-sky_material = SubResource("ProceduralSkyMaterial_1fxhy")
+sky_material = SubResource("ShaderMaterial_tjfdf")
 
 [sub_resource type="Environment" id="Environment_c2y40"]
 background_mode = 2
 sky = SubResource("Sky_ur1xi")
-glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcm6d"]
 albedo_color = Color(0.3665946, 0.3665946, 0.36659458, 1)
