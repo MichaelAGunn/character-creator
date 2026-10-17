@@ -151,7 +151,7 @@ func _ready() -> void:
 				"Mouth": mouths.append(child)
 				"Tail": tails.append(child)
 				"Hat": hats.append(child)
-				"Shirts": shirts.append(child)
+				"Shirt": shirts.append(child)
 				"Pants": pants.append(child)
 				"Ring": rings.append(child)
 				"Earring": earrings.append(child)

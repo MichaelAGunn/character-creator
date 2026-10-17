@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://di0ivoscrg4kr" path="res://utils/player.tscn" id="2_1fxhy"]
 [ext_resource type="Shader" uid="uid://c3kh6mvqg42ia" path="res://shaders/sky.gdshader" id="2_ur1xi"]
 [ext_resource type="PackedScene" uid="uid://b2s483v0wqrns" path="res://utils/creator_ui.tscn" id="3_1fxhy"]
+[ext_resource type="PackedScene" uid="uid://cjk5lxgc18ujs" path="res://env/desert.tscn" id="5_c2y40"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tjfdf"]
 shader = ExtResource("2_ur1xi")
@@ -44,9 +45,6 @@ sky_material = SubResource("ShaderMaterial_tjfdf")
 background_mode = 2
 sky = SubResource("Sky_ur1xi")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcm6d"]
-albedo_color = Color(0.3665946, 0.3665946, 0.36659458, 1)
-
 [node name="Main" type="Node3D" unique_id=572300905]
 script = ExtResource("1_r314e")
 
@@ -57,13 +55,9 @@ shadow_enabled = true
 [node name="Sky" type="WorldEnvironment" parent="." unique_id=690240023]
 environment = SubResource("Environment_c2y40")
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=1845366388]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-size = Vector3(20, 1, 20)
-material = SubResource("StandardMaterial3D_tcm6d")
-
 [node name="CreatorUI" parent="." unique_id=1250869140 node_paths=PackedStringArray("player") instance=ExtResource("3_1fxhy")]
 player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=987312890 instance=ExtResource("2_1fxhy")]
+
+[node name="desert" parent="." unique_id=115765550 instance=ExtResource("5_c2y40")]
