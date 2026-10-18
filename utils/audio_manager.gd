@@ -16,13 +16,6 @@ func _ready():
 	music.playing = true
 
 
-func _process(_delta: float) -> void:
-	if connected:
-		return
-	# TODO: Connect to all UI buttons to play correct sfx
-	connected = true
-
-
 func _on_song_finished() -> void:
 	if music.playing == false:
 		music.playing = true

@@ -25,5 +25,5 @@ bus = &"SFX"
 
 [node name="CharPlayer" type="AudioStreamPlayer" parent="." unique_id=2097346224]
 stream = SubResource("AudioStreamRandomizer_pinhd")
-volume_db = -8.0
+volume_db = -2.0
 bus = &"SFX"
