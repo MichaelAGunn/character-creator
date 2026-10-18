@@ -3,3 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://b08dlvthobm51" path="res://models/elokido.glb" id="1_d4uaj"]
 
 [node name="elokido" unique_id=417521309 instance=ExtResource("1_d4uaj")]
+
+[node name="Skeleton3D" parent="Rig" parent_id_path=PackedInt32Array(800153992) index="0" unique_id=2040552226]
+bones/2/rotation = Quaternion(0.64607054, 0.21097906, 0.65022135, -0.33954805)
+bones/3/rotation = Quaternion(-0.16033174, -0.15531854, 0.0073941383, 0.97473854)
+bones/5/rotation = Quaternion(-0.64607054, 0.21097906, 0.65022135, 0.33954805)
+bones/6/rotation = Quaternion(-0.16033174, 0.15531854, -0.0073941383, 0.97473854)
+bones/10/rotation = Quaternion(0.9783295, 0.10616385, 0.0010150344, -0.17776302)
+bones/11/rotation = Quaternion(-0.20540743, 0.41613743, -0.4384144, 0.7696949)
+bones/13/rotation = Quaternion(0.9783295, -0.10616385, -0.0010150344, -0.17776302)
+bones/14/rotation = Quaternion(-0.20540743, -0.41613743, 0.4384144, 0.7696949)

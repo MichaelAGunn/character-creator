@@ -47,6 +47,7 @@ var mouse_sensitivity: float = 0.15
 var joystick_sensitivity: float = 1.0
 var invert_y: bool = false
 var _mouse_input_direction := Vector2.ZERO
+var limit: int = 5.0
 
 func _ready() -> void:
 	creator_ui.saved.connect(_on_ui_saved)
@@ -115,6 +116,10 @@ func _handle_movement_input(delta: float) -> void:
 
 	velocity.x = move_toward(velocity.x, target_velocity.x, ACCELERATION * delta)
 	velocity.z = move_toward(velocity.z, target_velocity.z, ACCELERATION * delta)
+
+	# Restrict movement
+	global_position.x = clamp(global_position.x, -limit, limit)
+	global_position.z = clamp(global_position.z, -limit, limit)
 
 	# Face movement direction
 	if move_dir.length() > 0.01:
