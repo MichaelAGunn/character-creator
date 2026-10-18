@@ -6,22 +6,19 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_byf7i"]
 render_priority = 0
 shader = ExtResource("2_xnlb4")
-shader_parameter/sand_color_light = Color(0.84943134, 0.80496836, 0.44027677, 1)
-shader_parameter/sand_color_dark = Color(0.7681654, 0.3625039, 0.41725302, 1)
-shader_parameter/color_contrast = 1.1
-shader_parameter/shadow_tint = Color(0.09803922, 0.003921569, 0.42745098, 1)
-shader_parameter/shadow_strength = 0.30000001425
-shader_parameter/grain_scale = 20.00000092625
-shader_parameter/ripple_scale = 10.0
-shader_parameter/dune_scale = 0.35
-shader_parameter/grain_strength = 0.50000002375
-shader_parameter/ripple_strength = 0.55
+shader_parameter/sand_light = Color(0.94, 0.8, 0.55, 1)
+shader_parameter/sand_mid = Color(0.74019486, 0.59776103, 0.37658983, 1)
+shader_parameter/dune_scale = 0.10000000335296999
+shader_parameter/ripple_scale = 0.40000001667093
+shader_parameter/ripple_strength = 1.0
+shader_parameter/dune_strength = 1.0
 shader_parameter/normal_strength = 1.2
 shader_parameter/light_steps = 3
-shader_parameter/light_softness = 0.03
-shader_parameter/ambient_strength = 0.25
-shader_parameter/wind_speed = 0.03
-shader_parameter/wind_direction = Vector2(1, 0.35)
+shader_parameter/light_softness = 0.06000000285
+shader_parameter/ambient = 0.05000000074506
+shader_parameter/shadow_tint = Color(0.09803922, 0.003921569, 0.42745098, 1)
+shader_parameter/wind_speed = 0.02000000095
+shader_parameter/wind_dir = Vector2(1, 0.25)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2slv1"]
 height = 1.0

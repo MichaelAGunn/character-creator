@@ -5,10 +5,11 @@ const TOON = preload("uid://dvnq1gtre07ho")
 @export var player: Player
 
 # Subviewport Assets
-@onready var skeleton = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D
+@onready var skeleton: Skeleton3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D
 @onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D/Mesh#$MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D/MaleMesh
-@onready var sub_viewport = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport
+@onready var sub_viewport: SubViewport = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport
 @onready var camera: Camera3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/Camera3D
+@onready var sfx: AudioStreamPlayer3D = $SFXPlayer
 
 # Color Picker Buttons
 @onready var skin_color_picker_button: ColorPickerButton = %SkinColorPickerButton
@@ -35,32 +36,32 @@ const TOON = preload("uid://dvnq1gtre07ho")
 ]
 
 # Sliders for Blend Keys
-@onready var radius_h_slider = %RadiusHSlider
+@onready var radius_h_slider: HSlider = %RadiusHSlider
 @onready var h_sliders: Array[HSlider] = [
 	radius_h_slider
 ]
 
 # Lists of Accessories
-@onready var eyes_prev = %EyesPrev
-@onready var eyes_label = %EyesLabel
-@onready var eyes_next = %EyesNext
+@onready var eyes_prev: Button = %EyesPrev
+@onready var eyes_label: Label = %EyesLabel
+@onready var eyes_next: Button = %EyesNext
 @onready var hats_prev: Button = %HatsPrev
-@onready var hats_label = %HatsLabel
+@onready var hats_label: Label = %HatsLabel
 @onready var hats_next: Button = %HatsNext
 @onready var shirts_prev: Button = %ShirtsPrev
-@onready var shirts_label = %ShirtsLabel
+@onready var shirts_label: Label = %ShirtsLabel
 @onready var shirts_next: Button = %ShirtsNext
 @onready var pants_prev: Button = %PantsPrev
-@onready var pants_label = %PantsLabel
+@onready var pants_label: Label = %PantsLabel
 @onready var pants_next: Button = %PantsNext
 @onready var rings_prev: Button = %RingsPrev
-@onready var rings_label = %RingsLabel
+@onready var rings_label: Label = %RingsLabel
 @onready var rings_next: Button = %RingsNext
 @onready var earrings_prev: Button = %EarringsPrev
-@onready var earrings_label = %EarringsLabel
+@onready var earrings_label: Label = %EarringsLabel
 @onready var earrings_next: Button = %EarringsNext
 @onready var shoes_prev: Button = %ShoesPrev
-@onready var shoes_label = %ShoesLabel
+@onready var shoes_label: Label = %ShoesLabel
 @onready var shoes_next: Button = %ShoesNext
 @onready var eyes: Array[MeshInstance3D] = [null]
 @onready var mouths: Array[MeshInstance3D] = [null]
@@ -82,8 +83,8 @@ const TOON = preload("uid://dvnq1gtre07ho")
 ]
 
 # Buttons to Leave UI
-@onready var save_button = %SaveButton
-@onready var cancel_button = %CancelButton
+@onready var save_button: Button = %SaveButton
+@onready var cancel_button: Button = %CancelButton
 
 var materials_loaded: bool = false
 
@@ -109,6 +110,7 @@ func _ready() -> void:
 	visible = false
 	body.visible = false
 	
+	# Initialize shaders
 	var shader := ShaderMaterial.new()
 	shader.shader = TOON
 	shader.set_shader_parameter("use_stepped", false)
@@ -170,10 +172,10 @@ func _ready() -> void:
 func change_color(new_color: Color, node: MeshInstance3D, slot: int = 0) -> void:
 	if node == null:
 		return
-	var old_material = node.get_active_material(slot) as ShaderMaterial#StandardMaterial3D
+	
+	var old_material = node.get_active_material(slot) as ShaderMaterial
 	if old_material:
-		var new_material = old_material.duplicate() as ShaderMaterial#StandardMaterial3D
-		#new_material.albedo_color = new_color
+		var new_material = old_material.duplicate() as ShaderMaterial
 		new_material.set_shader_parameter("albedo_color", new_color)
 		node.set_surface_override_material(slot, new_material)
 	else:
@@ -185,16 +187,17 @@ func change_accessory( direction: int, list: Array, index: int, total: int, pick
 	if old_acc != null:
 		old_acc.visible = false
 	index = wrap(index + direction, 0, total)
+	
 	var new_acc: MeshInstance3D = list[index]
 	if new_acc != null:
 		new_acc.visible = true
 		label.text = new_acc.name
 		change_color(picker.get_picker().color, new_acc)
-		# TODO: Add second colour to eyes!
 		if new_acc.mesh.get_surface_count() > 1:
 			change_color(picker2.get_picker().color, new_acc, 1)
 	else:
 		label.text = "None"
+	
 	return index
 
 
@@ -211,18 +214,21 @@ func revert_accessory(list: Array, index: int, _player_list: Array, player_index
 		if list[index] != null:
 			list[index].visible = true
 			label.text = list[index].name
+
 	return index
 
 
 func fully_revert_ui() -> void:
+	# TODO: Reduce redundancy (which seems impossible atm)
 	var revert_to_color: Color = player.body.get_active_material(0).get_shader_parameter("albedo_color")
 	revert_color(skin_color_picker_button, revert_to_color, body)
 	current_eyes_index = revert_accessory(eyes, current_eyes_index, player.eyes, player.current_eyes_index, eye_color_picker_button, eyes_label)
 	if player.eyes[current_eyes_index] != null:
 		revert_to_color = player.eyes[player.current_eyes_index].get_active_material(0).get_shader_parameter("albedo_color")
 		revert_color(hat_color_picker_button, revert_to_color, hats[current_hat_index])
-		revert_to_color = player.eyes[player.current_eyes_index].get_active_material(1).get_shader_parameter("albedo_color")
-		revert_color(pupil_color_picker_button, revert_to_color, eyes[current_eyes_index], 1)
+		if player.eyes[current_eyes_index].get_surface_override_material_count() > 1:
+			revert_to_color = player.eyes[player.current_eyes_index].get_active_material(1).get_shader_parameter("albedo_color")
+			revert_color(pupil_color_picker_button, revert_to_color, eyes[current_eyes_index], 1)
 	current_hat_index = revert_accessory(hats, current_hat_index, player.hats, player.current_hat_index, hat_color_picker_button, hats_label)
 	if player.hats[current_hat_index] != null:
 		revert_to_color = player.hats[player.current_hat_index].get_active_material(0).get_shader_parameter("albedo_color")
@@ -239,8 +245,9 @@ func fully_revert_ui() -> void:
 	if player.rings[current_ring_index] != null:
 		revert_to_color = player.rings[player.current_ring_index].get_active_material(0).get_shader_parameter("albedo_color")
 		revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
-		revert_to_color = player.rings[player.current_ring_index].get_active_material(1).get_shader_parameter("albedo_color")
-		revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
+		if player.rings[current_ring_index].get_surface_override_material_count() > 1:
+			revert_to_color = player.rings[player.current_ring_index].get_active_material(1).get_shader_parameter("albedo_color")
+			revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
 	current_earring_index = revert_accessory(earrings, current_earring_index, player.earrings, player.current_earring_index, earring_color_picker_button, earrings_label)
 	if player.earrings[current_earring_index] != null:
 		revert_to_color = player.earrings[player.current_earring_index].get_active_material(0).get_shader_parameter("albedo_color")
@@ -271,6 +278,8 @@ func _on_slider_changed(value: float, h_slider: HSlider) -> void:
 
 func _on_save_pressed() -> void:
 	# TODO: Reduce redundancy (which seems impossible atm)
+	AudioManager.ui.set_stream(AudioManager.SUBMIT)
+	AudioManager.ui.play()
 	change_color(skin_color_picker_button.get_picker().color, player.body)
 	if player.eyes[player.current_eyes_index] != null:
 		player.eyes[player.current_eyes_index].visible = false
@@ -320,12 +329,15 @@ func _on_save_pressed() -> void:
 
 
 func _on_cancel_pressed() -> void:
+	AudioManager.ui.set_stream(AudioManager.SUBMIT)
+	AudioManager.ui.play()
 	fully_revert_ui()
 
 
 func _on_accessory_button_pressed(button: Button) -> void:
 	var category: String = button.get_parent().name
 	var is_next: int = 1 if button.text == ">" else -1
+	AudioManager.ui.play()
 	match category:
 		"Eyes":
 			current_eyes_index = change_accessory(

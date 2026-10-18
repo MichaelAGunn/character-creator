@@ -609,18 +609,18 @@ anim_player = NodePath("../elokido/AnimationPlayer")
 
 [node name="elokido" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport" unique_id=417521309 instance=ExtResource("2_cew4c")]
 
-[node name="Skeleton3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig" parent_id_path=PackedInt32Array(417521309, 800153992) index="0" unique_id=2040552226]
-bones/0/position = Vector3(-0.0355616, 0, 0)
-bones/0/rotation = Quaternion(0, 0, -0.050960883, 0.99870074)
-bones/2/rotation = Quaternion(0.6865805, 0.2081061, 0.60124075, -0.35186455)
-bones/3/rotation = Quaternion(-0.16141589, -0.15988283, 0.014546126, 0.97374076)
-bones/5/rotation = Quaternion(-0.6645759, 0.2040383, 0.6288884, 0.34814754)
-bones/6/rotation = Quaternion(-0.16203356, 0.16140583, -0.018048072, 0.9733282)
-bones/8/rotation = Quaternion(0.075174086, -0.0019415679, 0.025745815, 0.9968362)
-bones/10/rotation = Quaternion(0.97175026, 0.15513717, 0.009926271, -0.17758262)
-bones/11/rotation = Quaternion(-0.20530343, 0.41625777, -0.4383039, 0.76972055)
-bones/13/rotation = Quaternion(0.9838129, -0.023827992, 0.013864033, -0.17706521)
-bones/14/rotation = Quaternion(-0.18141472, -0.4425271, 0.41337392, 0.7748423)
+[node name="Skeleton3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1558775972) index="0" unique_id=1589454723]
+bones/0/position = Vector3(0.028703608, 0, 0)
+bones/0/rotation = Quaternion(0, 0, 0.041147448, 0.9991531)
+bones/2/rotation = Quaternion(0.58642155, 0.22240534, 0.7136695, -0.31196412)
+bones/3/rotation = Quaternion(-0.11092358, -0.029032387, -0.21284607, 0.9703349)
+bones/5/rotation = Quaternion(-0.5222496, 0.24634916, 0.7715279, 0.2670436)
+bones/6/rotation = Quaternion(-0.14204885, 0.02238075, 0.19597952, 0.9700069)
+bones/8/rotation = Quaternion(0.07513225, 0.0031710952, -0.0420498, 0.9962816)
+bones/10/rotation = Quaternion(0.9834194, 0.036513973, -0.011579841, -0.17725372)
+bones/11/rotation = Quaternion(-0.20518528, 0.4163945, -0.43817833, 0.76974964)
+bones/13/rotation = Quaternion(0.9736753, -0.14258672, -0.007638157, -0.17767173)
+bones/14/rotation = Quaternion(-0.20527244, -0.41628948, 0.43827465, 0.76972836)
 
 [connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor/SkinColorPickerButton" to="." method="_on_skin_color_picker_button_color_changed"]
 

@@ -2,6 +2,7 @@
 .godot/
 /android/
 /refs/
+/sounds/
 *.tmp
 
 # Blender 5+ specific ignores

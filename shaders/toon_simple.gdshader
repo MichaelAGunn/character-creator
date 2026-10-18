@@ -18,13 +18,13 @@ uniform float shadow_tint_amount : hint_range(0.0, 1.0, 0.1) = 0.4;
 //uniform float normal_strength : hint_range(0.0, 1.0, 0.05) = 0.0;
 //uniform sampler2D normal_texture;
 
-group_uniforms Shader.Rim;
-uniform bool use_rim = true;
-uniform vec4 rim_color : source_color = vec4(1.0);
-uniform float rim_amount = 2.0;
-uniform float rim_smoothness = 0.2;
-uniform float rim_mask_shadow : hint_range(0.0, 1.0, 0.05) = 1.0;
-uniform float rim_blend : hint_range(0.0, 1.0, 0.05) = 1.0;
+//group_uniforms Shader.Rim;
+//uniform bool use_rim = true;
+//uniform vec4 rim_color : source_color = vec4(1.0);
+//uniform float rim_amount = 2.0;
+//uniform float rim_smoothness = 0.2;
+//uniform float rim_mask_shadow : hint_range(0.0, 1.0, 0.05) = 1.0;
+//uniform float rim_blend : hint_range(0.0, 1.0, 0.05) = 1.0;
 
 //group_uniforms Shader.Pattern;
 //uniform bool use_pattern = true;
@@ -95,13 +95,13 @@ void light () {
 	vec3 diffuse = vec3(light) * (LIGHT_COLOR / PI);
 	diffuse = (shadow_tint.rgb * (1.0 - (light)) * shadow_tint_amount) + diffuse * light;
 
-	if(use_rim){
-		float rim_value = fresnel(rim_amount, NORMAL, VIEW);
-		rim_value = smoothstep(0.5 - (rim_smoothness / 2.0), 0.5 + (rim_smoothness / 2.0), rim_value);
-		rim_value = mix(rim_value, rim_value * light, rim_mask_shadow);
-
-		diffuse += rim_color.rgb * rim_value * rim_blend;
-	}
+	//if(use_rim){
+		//float rim_value = fresnel(rim_amount, NORMAL, VIEW);
+		//rim_value = smoothstep(0.5 - (rim_smoothness / 2.0), 0.5 + (rim_smoothness / 2.0), rim_value);
+		//rim_value = mix(rim_value, rim_value * light, rim_mask_shadow);
+//
+		//diffuse += rim_color.rgb * rim_value * rim_blend;
+	//}
 
 	DIFFUSE_LIGHT += diffuse;
 	//SPECULAR_LIGHT += vec3(pow(light, 50.0)) * specular;

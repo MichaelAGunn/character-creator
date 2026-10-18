@@ -1,7 +1,7 @@
 extends Node3D
 
-@onready var creator_ui = $CreatorUI
-@onready var player = $Player
+@onready var creator_ui: Control = $CreatorUI
+@onready var player: Node3D = $Player
 
 var never_ui: bool = true
 
@@ -30,6 +30,7 @@ func toggle_ui() -> void:
 		creator_ui.camera.make_current()
 		player.camera.clear_current()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		AudioManager.ui.set_stream(AudioManager.CYCLE)
 	elif creator_ui.camera.current:
 		creator_ui._on_cancel_pressed()
 		player.camera.clear_current()

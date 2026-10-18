@@ -46,10 +46,11 @@ background_mode = 2
 sky = SubResource("Sky_ur1xi")
 
 [node name="Main" type="Node3D" unique_id=572300905]
+process_mode = 3
 script = ExtResource("1_r314e")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=313048605]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.5, 0.86602545, 0, -0.86602557, 0.49999997, 0, 0, 0)
+transform = Transform3D(0.12214038, -0.8513927, 0.5101101, 0.24342804, 0.52395725, 0.81621784, -0.9621978, 0.024481863, 0.27124915, 0, 0, 0)
 shadow_enabled = true
 
 [node name="Sky" type="WorldEnvironment" parent="." unique_id=690240023]
