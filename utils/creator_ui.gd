@@ -9,7 +9,6 @@ const TOON = preload("uid://dvnq1gtre07ho")
 @onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D/Mesh#$MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D/MaleMesh
 @onready var sub_viewport: SubViewport = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport
 @onready var camera: Camera3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/Camera3D
-@onready var sfx: AudioStreamPlayer3D = $SFXPlayer
 
 # Color Picker Buttons
 @onready var skin_color_picker_button: ColorPickerButton = %SkinColorPickerButton

@@ -98,17 +98,37 @@ parameters/walking/blend_position = 0.0
 
 [node name="elokido" parent="." unique_id=417521309 instance=ExtResource("2_pinhd")]
 
-[node name="Skeleton3D" parent="elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1986608969) index="0" unique_id=1609813898]
-bones/1/position = Vector3(0, 0.33948404, 0.0010631836)
-bones/1/rotation = Quaternion(-0.003582965, 0, 0, 0.99999356)
-bones/2/rotation = Quaternion(0.6798148, 0.26806185, 0.63373333, -0.2537257)
-bones/3/rotation = Quaternion(0.05477794, 0.050358884, -0.0012339886, 0.99722713)
-bones/5/rotation = Quaternion(0.6798148, -0.26806185, -0.63373333, -0.2537257)
-bones/6/rotation = Quaternion(0.05477794, -0.050358884, 0.0012339886, 0.99722713)
-bones/8/rotation = Quaternion(0.003582965, 0, 0, 0.99999356)
-bones/10/rotation = Quaternion(0.9945961, 0.10374661, 0.0013299368, -0.003663602)
-bones/11/rotation = Quaternion(-0.48188883, -0.0070921783, 0.046792485, 0.8749533)
-bones/13/rotation = Quaternion(0.9945961, -0.10374661, -0.0013299368, -0.003663602)
-bones/14/rotation = Quaternion(-0.48188883, 0.0070921783, -0.046792485, 0.8749533)
+[node name="Skeleton3D" parent="elokido/Rig" parent_id_path=PackedInt32Array(417521309, 2067668887) index="0" unique_id=1078508150]
+bones/0/position = Vector3(-0.009420484, 0, 0)
+bones/0/rotation = Quaternion(0, 0, -0.013570027, 0.99990803)
+bones/2/rotation = Quaternion(0.37015668, 0.25783268, 0.87163925, -0.19170633)
+bones/3/rotation = Quaternion(-0.15232708, -0.13360903, -0.03176085, 0.9787423)
+bones/5/rotation = Quaternion(-0.23840977, 0.27242443, 0.927243, 0.09574128)
+bones/6/rotation = Quaternion(-0.15777707, 0.13234055, 0.028761718, 0.9781438)
+bones/8/rotation = Quaternion(0.07516993, 0.0020959673, -0.027793307, 0.99678123)
+bones/10/rotation = Quaternion(0.97822064, 0.10715887, 0.0011956317, -0.17776383)
+bones/11/rotation = Quaternion(-0.20524909, 0.4163207, -0.4382461, 0.76973397)
+bones/13/rotation = Quaternion(0.9814347, -0.07217015, 0.005143549, -0.17762591)
+bones/14/rotation = Quaternion(-0.20116885, -0.42088988, 0.43402228, 0.7707188)
+
+[node name="LeftFootStep" type="BoneAttachment3D" parent="elokido/Rig/Skeleton3D" index="29" unique_id=473739028]
+transform = Transform3D(0.12280309, 0.6133555, 0.780202, 0.76844674, -0.556252, 0.31634432, 0.62802047, 0.5606958, -0.53964055, 0.07051773, 0.11975564, -4.7311187e-06)
+bone_name = "Foot.L"
+bone_idx = 11
+
+[node name="Ankle" type="Node3D" parent="elokido/Rig/Skeleton3D/LeftFootStep" unique_id=1536008165]
+
+[node name="Toe" type="Marker3D" parent="elokido/Rig/Skeleton3D/LeftFootStep/Ankle" unique_id=559062785]
+transform = Transform3D(0.99899435, 0.024985641, -0.037222594, -0.024708599, 0.9996637, 0.007880658, 0.03740698, -0.0069530606, 0.9992759, 0.025, 0.25, 0)
+
+[node name="RightFootStep" type="BoneAttachment3D" parent="elokido/Rig/Skeleton3D" index="30" unique_id=846730932]
+transform = Transform3D(0.14532273, -0.61022437, -0.77878636, -0.75839376, -0.5742134, 0.3084121, -0.6353902, 0.5458076, -0.5462366, -0.07214901, 0.12168944, 2.4363399e-06)
+bone_name = "Foot.R"
+bone_idx = 14
+
+[node name="Ankle" type="Node3D" parent="elokido/Rig/Skeleton3D/RightFootStep" unique_id=128771032]
+
+[node name="Toe" type="Marker3D" parent="elokido/Rig/Skeleton3D/RightFootStep/Ankle" unique_id=1615507348]
+transform = Transform3D(0.9999998, -2.9802322e-08, 0, 0, 0.99999994, -2.9802322e-08, -2.9802322e-08, -2.9802322e-08, 0.9999999, -0.025, 0.25, 0)
 
 [editable path="elokido"]

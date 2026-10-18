@@ -1,15 +1,29 @@
 [gd_scene format=3 uid="uid://brrebcgptcsxn"]
 
 [ext_resource type="Script" uid="uid://ef2q1vc81c41" path="res://utils/audio_manager.gd" id="1_yvh18"]
+[ext_resource type="AudioStream" uid="uid://cuvsd2kvp3qhp" path="res://sounds/step_short.wav" id="2_ofylf"]
+[ext_resource type="AudioStream" uid="uid://cspkp45aaglim" path="res://sounds/step.wav" id="3_86fuy"]
+[ext_resource type="AudioStream" uid="uid://bj7f2snogw3uw" path="res://sounds/step_long.wav" id="4_nvrsc"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pinhd"]
+random_pitch = 1.005793
+random_volume_offset_db = 0.1
+streams_count = 3
+stream_0/stream = ExtResource("2_ofylf")
+stream_1/stream = ExtResource("3_86fuy")
+stream_2/stream = ExtResource("4_nvrsc")
 
 [node name="AudioManager" type="Node" unique_id=1097791004]
 script = ExtResource("1_yvh18")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1063746517]
+volume_db = -0.01
 bus = &"Music"
 
 [node name="UIPlayer" type="AudioStreamPlayer" parent="." unique_id=120561903]
 bus = &"SFX"
 
 [node name="CharPlayer" type="AudioStreamPlayer" parent="." unique_id=2097346224]
+stream = SubResource("AudioStreamRandomizer_pinhd")
+volume_db = -8.0
 bus = &"SFX"

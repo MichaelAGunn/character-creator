@@ -134,5 +134,9 @@ func _handle_movement_input(delta: float) -> void:
 		playback.travel("still")
 
 
+func footstep() -> void:
+	AudioManager.char.play()
+
+
 func _on_ui_saved() -> void:
 	playback.travel("surprise")
