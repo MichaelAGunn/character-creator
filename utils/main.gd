@@ -2,8 +2,11 @@ extends Node3D
 
 @onready var creator_ui: Control = $CreatorUI
 @onready var player: Node3D = $Player
+@onready var main_menu = $MainMenu
 
 var never_ui: bool = true
+var never_mm: bool = true
+var photo_mode: bool = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -20,6 +23,13 @@ func _input(event: InputEvent) -> void:
 				creator_ui.cancel_button.pressed.connect(_on_cancel_pressed)
 				never_ui = false
 			toggle_ui()
+		if Input.is_action_just_pressed("main"):
+			if never_mm:
+				main_menu.resume.pressed.connect(_on_resume_pressed)
+				main_menu.mode.pressed.connect(_on_mode_pressed)
+				main_menu.exit.pressed.connect(_on_exit_pressed)
+				never_mm = false
+			toggle_main_menu()
 
 
 func toggle_ui() -> void:
@@ -45,3 +55,30 @@ func _on_save_pressed() -> void:
 
 func _on_cancel_pressed() -> void:
 	toggle_ui()
+
+
+func toggle_main_menu() -> void:
+	main_menu.visible = !main_menu.visible
+	AudioManager.ui.set_stream(AudioManager.MAIN)
+	if main_menu.visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		AudioManager.ui.pitch_scale = 0.9
+	AudioManager.ui.play()
+
+
+func _on_resume_pressed() -> void:
+	toggle_main_menu()
+
+
+func _on_mode_pressed() -> void:
+	photo_mode = !photo_mode
+	if photo_mode:
+		pass
+	else:
+		pass
+
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()

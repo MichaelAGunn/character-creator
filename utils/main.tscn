@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://di0ivoscrg4kr" path="res://utils/player.tscn" id="2_1fxhy"]
 [ext_resource type="Shader" uid="uid://c3kh6mvqg42ia" path="res://shaders/sky.gdshader" id="2_ur1xi"]
 [ext_resource type="PackedScene" uid="uid://b2s483v0wqrns" path="res://utils/creator_ui.tscn" id="3_1fxhy"]
+[ext_resource type="PackedScene" uid="uid://dc7v0nub5af0q" path="res://utils/main_menu.tscn" id="4_rb1tx"]
 [ext_resource type="PackedScene" uid="uid://cjk5lxgc18ujs" path="res://env/desert.tscn" id="5_c2y40"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tjfdf"]
@@ -58,6 +59,8 @@ environment = SubResource("Environment_c2y40")
 
 [node name="CreatorUI" parent="." unique_id=1250869140 node_paths=PackedStringArray("player") instance=ExtResource("3_1fxhy")]
 player = NodePath("../Player")
+
+[node name="MainMenu" parent="." unique_id=2132398659 instance=ExtResource("4_rb1tx")]
 
 [node name="Player" parent="." unique_id=987312890 instance=ExtResource("2_1fxhy")]
 

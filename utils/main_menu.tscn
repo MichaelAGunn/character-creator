@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dc7v0nub5af0q"]
+
+[ext_resource type="Script" uid="uid://b1d4ieier8fk6" path="res://utils/main_menu.gd" id="1_dey5a"]
+
+[node name="MainMenu" type="Control" unique_id=2132398659]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_dey5a")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2116672293]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.7137255, 0.7137255, 0.7137255, 0.23529412)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1318331018]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=12241418]
+layout_mode = 2
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="VBoxContainer" unique_id=2033002438]
+layout_mode = 2
+text = "Resume"
+
+[node name="Load" type="Button" parent="VBoxContainer" unique_id=1713561777]
+layout_mode = 2
+text = "Load File"
+
+[node name="Mode" type="Button" parent="VBoxContainer" unique_id=1101053945]
+layout_mode = 2
+text = "Photo Mode"
+
+[node name="Credits" type="Button" parent="VBoxContainer" unique_id=1706623390]
+layout_mode = 2
+text = "Credits"
+
+[node name="Exit" type="Button" parent="VBoxContainer" unique_id=1985843791]
+layout_mode = 2
+text = "Exit Game"
