@@ -289,7 +289,7 @@ func fully_revert_ui() -> void:
 	current_eyes_index = revert_accessory(eyes, current_eyes_index, player.eyes, player.current_eyes_index, eye_color_picker_button, eyes_label)
 	if player.eyes[current_eyes_index] != null:
 		revert_to_color = player.eyes[player.current_eyes_index].get_active_material(0).get_shader_parameter("albedo_color")
-		revert_color(hat_color_picker_button, revert_to_color, hats[current_hat_index])
+		revert_color(eye_color_picker_button, revert_to_color, eyes[current_eyes_index])
 		if player.eyes[current_eyes_index].get_surface_override_material_count() > 1:
 			revert_to_color = player.eyes[player.current_eyes_index].get_active_material(1).get_shader_parameter("albedo_color")
 			revert_color(pupil_color_picker_button, revert_to_color, eyes[current_eyes_index], 1)
