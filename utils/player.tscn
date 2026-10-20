@@ -105,20 +105,20 @@ parameters/walking/blend_position = 0.0
 [node name="elokido" parent="." unique_id=417521309 instance=ExtResource("2_pinhd")]
 
 [node name="Skeleton3D" parent="elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1931656610) index="0" unique_id=186694213]
-bones/0/position = Vector3(-0.0068362216, 0.27097014, 0.032734677)
-bones/0/rotation = Quaternion(-0.07509515, 0.0039533386, -0.052422725, 0.99578965)
-bones/1/rotation = Quaternion(0.7027045, 0.20332143, 0.5790217, -0.36000097)
-bones/2/rotation = Quaternion(-0.16262138, -0.16500433, 0.022592288, 0.97253144)
+bones/0/position = Vector3(-0.00039513523, 0.27203515, 0.032734677)
+bones/0/rotation = Quaternion(-0.07519903, 7.873413e-05, -0.0010440432, 0.997168)
+bones/1/rotation = Quaternion(0.6467894, 0.21087682, 0.6493896, -0.33983475)
+bones/2/rotation = Quaternion(-0.16236956, -0.16393033, 0.020903084, 0.9727929)
 bones/3/rotation = Quaternion(0.46655872, -0.2549318, 0.5256212, 0.66411984)
-bones/4/rotation = Quaternion(-0.68486035, 0.19708975, 0.6016768, 0.36070347)
-bones/5/rotation = Quaternion(-0.1639216, 0.16823679, -0.030053068, 0.97155696)
+bones/4/rotation = Quaternion(-0.6466407, 0.21079403, 0.6495454, 0.33987167)
+bones/5/rotation = Quaternion(-0.1635287, 0.16680837, -0.027538272, 0.9719439)
 bones/6/rotation = Quaternion(0.46655872, 0.2549318, -0.5256212, 0.66411984)
-bones/7/rotation = Quaternion(0.07516348, -0.0023160246, 0.03071124, 0.9966956)
-bones/9/rotation = Quaternion(0.9714172, 0.15720439, 0.010303446, -0.17756507)
-bones/10/rotation = Quaternion(-0.20530902, 0.4162513, -0.43830982, 0.7697191)
+bones/7/rotation = Quaternion(0.075199105, -8.2280785e-05, 0.0010910738, 0.997168)
+bones/9/rotation = Quaternion(0.97821707, 0.10719164, 0.0012015795, -0.17776382)
+bones/10/rotation = Quaternion(-0.20539998, 0.41614604, -0.4384065, 0.7696967)
 bones/11/rotation = Quaternion(0.5763683, -1.1129145e-07, 0.6694657, 0.46863136)
-bones/12/rotation = Quaternion(0.98386025, -0.02181881, 0.014225523, -0.17703265)
-bones/13/rotation = Quaternion(-0.18428622, -0.43943343, 0.41639346, 0.7743083)
+bones/12/rotation = Quaternion(0.978439, -0.105153196, -0.00083162065, -0.17776205)
+bones/13/rotation = Quaternion(-0.20538375, -0.4161641, 0.43838993, 0.76970077)
 bones/14/rotation = Quaternion(-0.5763683, -1.1129145e-07, 0.6694657, -0.46863136)
 
 [editable path="elokido"]

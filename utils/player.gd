@@ -48,8 +48,10 @@ var joystick_sensitivity: float = 1.0
 var invert_y: bool = false
 var _mouse_input_direction := Vector2.ZERO
 var limit: int = 5.0
+var is_playing_special: bool = false
 
 func _ready() -> void:
+	anima_tree.animation_finished.connect(_on_animation_tree_finished)
 	creator_ui.saved.connect(_on_ui_saved)
 	var shader := ShaderMaterial.new()
 	shader.shader = TOON
@@ -107,6 +109,8 @@ func _camera_by_mouse(delta: float) -> void:
 
 
 func _handle_movement_input(delta: float) -> void:
+	if is_playing_special:
+		return
 	var raw_input: Vector2 = Input.get_vector("leftward", "rightward", "backward", "forward")
 	var cam_basis: Basis = camera_pivot.global_transform.basis
 	var move_dir: Vector3 = (cam_basis.x * raw_input.x + cam_basis.z * -raw_input.y)
@@ -140,5 +144,11 @@ func footstep() -> void:
 
 
 func _on_ui_saved() -> void:
-	print("SURPRISE")
+	print("_on_ui_saved()")
+	is_playing_special = true
 	playback.travel("surprise")
+
+
+func _on_animation_tree_finished(anima_name) -> void:
+	if anima_name in ["surprise", "wave"]:
+		is_playing_special = false

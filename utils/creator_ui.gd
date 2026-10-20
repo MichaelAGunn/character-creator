@@ -271,7 +271,6 @@ func revert_accessory(list: Array[MeshInstance3D], index: int, _player_list: Arr
 
 
 func fully_revert_ui() -> void:
-	print("FULLY REVERT UI")
 	# TODO: Reduce redundancy (which seems impossible atm)
 	var revert_to_color: Color = player.body.get_active_material(0).get_shader_parameter("albedo_color")
 	revert_color(skin_color_picker_button, revert_to_color, body)
@@ -352,7 +351,6 @@ func _on_save_pressed() -> void:
 	# TODO: Reduce redundancy (which seems impossible atm)
 	AudioManager.ui.set_stream(AudioManager.SUBMIT)
 	AudioManager.ui.play()
-	resize_whole_body()
 	change_color(skin_color_picker_button.get_picker().color, player.body)
 	if player.eyes[player.current_eyes_index] != null:
 		player.eyes[player.current_eyes_index].visible = false
@@ -398,6 +396,7 @@ func _on_save_pressed() -> void:
 	if player.shoes[player.current_shoes_index] != null:
 		player.shoes[player.current_shoes_index].visible = true
 	change_color(shoes_color_picker_button.get_picker().color, player.shoes[player.current_shoes_index])
+	resize_whole_body()
 	saved.emit()
 
 
