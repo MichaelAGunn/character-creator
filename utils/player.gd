@@ -75,6 +75,7 @@ func _ready() -> void:
 				"Ring": rings.append(child)
 				"Earring": earrings.append(child)
 				"Shoes": shoes.append(child)
+	
 	total_hats = hats.size()
 	total_shirts = shirts.size()
 	total_pants = pants.size()
@@ -139,4 +140,5 @@ func footstep() -> void:
 
 
 func _on_ui_saved() -> void:
+	print("SURPRISE")
 	playback.travel("surprise")

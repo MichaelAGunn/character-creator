@@ -35,9 +35,13 @@ const TOON = preload("uid://dvnq1gtre07ho")
 ]
 
 # Sliders for Blend Keys
-@onready var radius_h_slider: HSlider = %RadiusHSlider
+@onready var head_h_slider: HSlider = %HeadHSlider
+@onready var hands_h_slider: HSlider = %HandsHSlider
+@onready var feet_h_slider: HSlider = %FeetHSlider
 @onready var h_sliders: Array[HSlider] = [
-	radius_h_slider
+	head_h_slider,
+	hands_h_slider,
+	feet_h_slider
 ]
 
 # Lists of Accessories
@@ -181,7 +185,7 @@ func change_color(new_color: Color, node: MeshInstance3D, slot: int = 0) -> void
 		print("No material found!")
 
 
-func change_accessory( direction: int, list: Array, index: int, total: int, picker: ColorPickerButton, label: Label, picker2: ColorPickerButton = null) -> int:
+func change_accessory(direction: int, list: Array[MeshInstance3D], index: int, total: int, picker: ColorPickerButton, label: Label, picker2: ColorPickerButton = null) -> int:
 	var old_acc: MeshInstance3D = list[index]
 	if old_acc != null:
 		old_acc.visible = false
@@ -194,10 +198,53 @@ func change_accessory( direction: int, list: Array, index: int, total: int, pick
 		change_color(picker.get_picker().color, new_acc)
 		if new_acc.mesh.get_surface_count() > 1:
 			change_color(picker2.get_picker().color, new_acc, 1)
+		if new_acc.get_blend_shape_count() > 0:
+			match label:
+				hats_label, eyes_label, earrings_label:
+					new_acc.set_blend_shape_value(0, body.get_blend_shape_value(0))
+				rings_label:
+					new_acc.set_blend_shape_value(0, body.get_blend_shape_value(1))
+				shoes_label:
+					new_acc.set_blend_shape_value(0, body.get_blend_shape_value(2))
 	else:
 		label.text = "None"
 	
 	return index
+
+
+func resize_accessory(list: Array[MeshInstance3D], index: int, value: float) -> void:
+	list[index].set_blend_shape_value(0, value)
+
+
+func resize_whole_body() -> void:
+	player.body.set_blend_shape_value(0, head_h_slider.value)
+	for hat in player.hats:
+		if hat != null:
+			if hat.visible:
+				hat.set_blend_shape_value(0, head_h_slider.value)
+				break
+	for eye in player.eyes:
+		if eye != null:
+			if eye.visible:
+				eye.set_blend_shape_value(0, head_h_slider.value)
+				break
+	for er in player.earrings:
+		if er != null:
+			if er.visible:
+				er.set_blend_shape_value(0, head_h_slider.value)
+				break
+	player.body.set_blend_shape_value(1, hands_h_slider.value)
+	for ring in player.rings:
+		if ring != null:
+			if ring.visible:
+				ring.set_blend_shape_value(0, hands_h_slider.value)
+				break
+	player.body.set_blend_shape_value(2, feet_h_slider.value)
+	for shoe in player.shoes:
+		if shoe != null:
+			if shoe.visible:
+				shoe.set_blend_shape_value(0, feet_h_slider.value)
+				break
 
 
 func revert_color(picker: ColorPickerButton, color: Color, target: MeshInstance3D, slot: int = 0) -> void:
@@ -205,7 +252,13 @@ func revert_color(picker: ColorPickerButton, color: Color, target: MeshInstance3
 	change_color(color, target, slot)
 
 
-func revert_accessory(list: Array, index: int, _player_list: Array, player_index: int, _picker: ColorPickerButton, label: Label) -> int:
+func revert_sizes() -> void:
+	head_h_slider.value = player.body.get_blend_shape_value(0)
+	hands_h_slider.value = player.body.get_blend_shape_value(1)
+	feet_h_slider.value = player.body.get_blend_shape_value(2)
+
+
+func revert_accessory(list: Array[MeshInstance3D], index: int, _player_list: Array, player_index: int, _picker: ColorPickerButton, label: Label) -> int:
 	if index != player_index:
 		if list[index] != null:
 			list[index].visible = false
@@ -218,6 +271,7 @@ func revert_accessory(list: Array, index: int, _player_list: Array, player_index
 
 
 func fully_revert_ui() -> void:
+	print("FULLY REVERT UI")
 	# TODO: Reduce redundancy (which seems impossible atm)
 	var revert_to_color: Color = player.body.get_active_material(0).get_shader_parameter("albedo_color")
 	revert_color(skin_color_picker_button, revert_to_color, body)
@@ -255,6 +309,7 @@ func fully_revert_ui() -> void:
 	if player.shoes[current_shoes_index] != null:
 		revert_to_color = player.shoes[player.current_shoes_index].get_active_material(0).get_shader_parameter("albedo_color")
 		revert_color(shoes_color_picker_button, revert_to_color, shoes[current_shoes_index])
+	revert_sizes()
 
 
 func _on_color_picked(color: Color, color_picker_button: ColorPickerButton) -> void:
@@ -271,14 +326,33 @@ func _on_color_picked(color: Color, color_picker_button: ColorPickerButton) -> v
 		shoes_color_picker_button: change_color(color, shoes[current_shoes_index])
 
 
-func _on_slider_changed(value: float, h_slider: HSlider) -> void:
-	print(value)
+func _on_slider_changed(value: float, h_slider: HSlider, ) -> void:
+	var index: int
+	match h_slider:
+		head_h_slider:
+			index = 0
+			if hats[current_hat_index] != null:
+				resize_accessory(hats, current_hat_index, value)
+			if eyes[current_eyes_index] != null:
+				resize_accessory(eyes, current_eyes_index, value)
+			if earrings[current_earring_index] != null:
+				resize_accessory(earrings, current_earring_index, value)
+		hands_h_slider:
+			index = 1
+			if rings[current_ring_index] != null:
+				resize_accessory(rings, current_ring_index, value)
+		feet_h_slider:
+			index = 2
+			if shoes[current_shoes_index] != null:
+				resize_accessory(shoes, current_shoes_index, value)
+	body.set_blend_shape_value(index, value)
 
 
 func _on_save_pressed() -> void:
 	# TODO: Reduce redundancy (which seems impossible atm)
 	AudioManager.ui.set_stream(AudioManager.SUBMIT)
 	AudioManager.ui.play()
+	resize_whole_body()
 	change_color(skin_color_picker_button.get_picker().color, player.body)
 	if player.eyes[player.current_eyes_index] != null:
 		player.eyes[player.current_eyes_index].visible = false
@@ -330,7 +404,7 @@ func _on_save_pressed() -> void:
 func _on_cancel_pressed() -> void:
 	AudioManager.ui.set_stream(AudioManager.SUBMIT)
 	AudioManager.ui.play()
-	fully_revert_ui()
+	#fully_revert_ui()
 
 
 func _on_accessory_button_pressed(button: Button) -> void:

@@ -35,7 +35,7 @@ func toggle_ui() -> void:
 		creator_ui._on_cancel_pressed()
 		player.camera.clear_current()
 		player.camera.make_current()
-		creator_ui.fully_revert_ui()
+		
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -45,3 +45,4 @@ func _on_save_pressed() -> void:
 
 func _on_cancel_pressed() -> void:
 	toggle_ui()
+	creator_ui.fully_revert_ui()
