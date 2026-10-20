@@ -1,6 +1,7 @@
 extends Control
 
-const TOON = preload("uid://dvnq1gtre07ho")
+const TOON = preload("uid://btrikqauyyvs2")#preload("uid://dvnq1gtre07ho")
+const OUTLINE = preload("uid://dxfb53kwyrd3a")
 
 @export var player: Player
 
@@ -116,7 +117,15 @@ func _ready() -> void:
 	# Initialize shaders
 	var shader := ShaderMaterial.new()
 	shader.shader = TOON
-	shader.set_shader_parameter("use_stepped", false)
+	shader.set_shader_parameter("use_rim", false)
+	shader.set_shader_parameter("use_stepped", true)
+	shader.set_shader_parameter("steps", 2.0)
+	shader.set_shader_parameter("step_smoothness", 0.0)
+	var next_shader := ShaderMaterial.new()
+	next_shader.shader = OUTLINE
+	shader.next_pass = next_shader
+	var specular_shader := shader.duplicate()
+	specular_shader.set_shader_parameter("specular", 0.3)
 	
 	# Connect color picker buttons
 	for color_picker_button in picker_buttons:
@@ -143,14 +152,17 @@ func _ready() -> void:
 	# Find all accessories
 	for child in skeleton.get_children():
 		if child is MeshInstance3D:
-			# Apply shader material
-			for surface in range(child.get_surface_override_material_count()):
-				child.set_surface_override_material(surface, shader.duplicate())
 			# Sort the accessories
 			var category: String = child.name.get_slice("_", 0)
 			if child.name != "Mesh":
 				child.name = child.name.get_slice("_", 1)
 				child.visible = false
+			# Apply shader material
+			for surface in range(child.get_surface_override_material_count()):
+				if category in ["Eyes", "Ring", "Earring"]:
+					child.set_surface_override_material(surface, specular_shader.duplicate())
+				else:
+					child.set_surface_override_material(surface, shader.duplicate())
 			match category:
 				"Eyes": eyes.append(child)
 				"Mouth": mouths.append(child)
@@ -299,7 +311,7 @@ func fully_revert_ui() -> void:
 		revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
 		if player.rings[current_ring_index].get_surface_override_material_count() > 1:
 			revert_to_color = player.rings[player.current_ring_index].get_active_material(1).get_shader_parameter("albedo_color")
-			revert_color(ring_color_picker_button, revert_to_color, rings[current_ring_index])
+			revert_color(gem_color_picker_button, revert_to_color, rings[current_ring_index])
 	current_earring_index = revert_accessory(earrings, current_earring_index, player.earrings, player.current_earring_index, earring_color_picker_button, earrings_label)
 	if player.earrings[current_earring_index] != null:
 		revert_to_color = player.earrings[player.current_earring_index].get_active_material(0).get_shader_parameter("albedo_color")
