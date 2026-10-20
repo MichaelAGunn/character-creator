@@ -5,7 +5,8 @@ const SPEED: float = 5.0
 const ACCELERATION: float = 12.0
 const ROTATION: float = 10.0
 
-const TOON = preload("uid://dvnq1gtre07ho")
+const TOON = preload("uid://btrikqauyyvs2")#preload("uid://dvnq1gtre07ho")
+const OUTLINE = preload("uid://dxfb53kwyrd3a")
 
 @onready var skeleton = $elokido/Rig/Skeleton3D
 @onready var body: MeshInstance3D = $elokido/Rig/Skeleton3D/Mesh
@@ -48,23 +49,37 @@ var joystick_sensitivity: float = 1.0
 var invert_y: bool = false
 var _mouse_input_direction := Vector2.ZERO
 var limit: int = 5.0
+var is_playing_special: bool = false
 
 func _ready() -> void:
+	anima_tree.animation_finished.connect(_on_animation_tree_finished)
 	creator_ui.saved.connect(_on_ui_saved)
 	var shader := ShaderMaterial.new()
 	shader.shader = TOON
-	shader.set_shader_parameter("use_stepped", false)
+	shader.set_shader_parameter("use_rim", false)
+	shader.set_shader_parameter("use_stepped", true)
+	shader.set_shader_parameter("steps", 2.0)
+	shader.set_shader_parameter("step_smoothness", 0.0)
+	var next_shader := ShaderMaterial.new()
+	next_shader.shader = OUTLINE
+	shader.next_pass = next_shader
+	var specular_shader := shader.duplicate()
+	specular_shader.set_shader_parameter("specular", 0.3)
+	
 	# Find all accessories
 	for child in skeleton.get_children():
 		if child is MeshInstance3D:
-			# Apply shader material
-			for surface in range(child.get_surface_override_material_count()):
-				child.set_surface_override_material(surface, shader.duplicate())
 			# Sort the accessories
 			var category: String = child.name.get_slice("_", 0)
 			if child.name != "Mesh":
 				child.name = child.name.get_slice("_", 1)
 				child.visible = false
+			# Apply shader material
+			for surface in range(child.get_surface_override_material_count()):
+				if category in ["Eyes", "Ring", "Earring"]:
+					child.set_surface_override_material(surface, specular_shader.duplicate())
+				else:
+					child.set_surface_override_material(surface, shader.duplicate())
 			match category:
 				"Eyes": eyes.append(child)
 				"Mouth": mouths.append(child)
@@ -75,6 +90,7 @@ func _ready() -> void:
 				"Ring": rings.append(child)
 				"Earring": earrings.append(child)
 				"Shoes": shoes.append(child)
+	
 	total_hats = hats.size()
 	total_shirts = shirts.size()
 	total_pants = pants.size()
@@ -88,6 +104,13 @@ func _physics_process(delta: float) -> void:
 	_camera_by_mouse(delta)
 	_handle_movement_input(delta)
 	move_and_slide()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("jump"):
+		if is_playing_special == false:
+			is_playing_special = true
+			playback.travel("wave")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -106,6 +129,8 @@ func _camera_by_mouse(delta: float) -> void:
 
 
 func _handle_movement_input(delta: float) -> void:
+	if is_playing_special:
+		return
 	var raw_input: Vector2 = Input.get_vector("leftward", "rightward", "backward", "forward")
 	var cam_basis: Basis = camera_pivot.global_transform.basis
 	var move_dir: Vector3 = (cam_basis.x * raw_input.x + cam_basis.z * -raw_input.y)
@@ -113,7 +138,6 @@ func _handle_movement_input(delta: float) -> void:
 	move_dir = move_dir.normalized() if move_dir.length() > 0.01 else Vector3.ZERO
 
 	var target_velocity: Vector3 = move_dir * SPEED
-
 	velocity.x = move_toward(velocity.x, target_velocity.x, ACCELERATION * delta)
 	velocity.z = move_toward(velocity.z, target_velocity.z, ACCELERATION * delta)
 
@@ -139,4 +163,10 @@ func footstep() -> void:
 
 
 func _on_ui_saved() -> void:
+	is_playing_special = true
 	playback.travel("surprise")
+
+
+func _on_animation_tree_finished(anima_name) -> void:
+	if anima_name in ["surprise", "wave"]:
+		is_playing_special = false

@@ -32,10 +32,10 @@ func toggle_ui() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		AudioManager.ui.set_stream(AudioManager.CYCLE)
 	elif creator_ui.camera.current:
+		creator_ui.fully_revert_ui()
 		creator_ui._on_cancel_pressed()
 		player.camera.clear_current()
 		player.camera.make_current()
-		creator_ui.fully_revert_ui()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 

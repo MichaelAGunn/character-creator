@@ -61,6 +61,22 @@ xfade_time = 0.25
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pinhd"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_agvph"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5prpm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wubh1"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5hsps"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_evxq3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gueo8"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tcm6d"]
 states/idle/node = SubResource("AnimationNodeAnimation_qlqhq")
 states/idle/position = Vector2(344, 49)
@@ -72,7 +88,7 @@ states/walking/node = SubResource("AnimationNodeBlendSpace1D_hv1mi")
 states/walking/position = Vector2(545, 42)
 states/wave/node = SubResource("AnimationNodeAnimation_5prpm")
 states/wave/position = Vector2(675, 196)
-transitions = ["Start", "still", SubResource("AnimationNodeStateMachineTransition_fue2l"), "still", "idle", SubResource("AnimationNodeStateMachineTransition_7e3rn"), "idle", "still", SubResource("AnimationNodeStateMachineTransition_hv1mi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_aprug"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_4yqtr"), "still", "walking", SubResource("AnimationNodeStateMachineTransition_j782d"), "walking", "still", SubResource("AnimationNodeStateMachineTransition_wva1f"), "surprise", "still", SubResource("AnimationNodeStateMachineTransition_qlqhq")]
+transitions = ["Start", "still", SubResource("AnimationNodeStateMachineTransition_fue2l"), "still", "idle", SubResource("AnimationNodeStateMachineTransition_7e3rn"), "idle", "still", SubResource("AnimationNodeStateMachineTransition_hv1mi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_aprug"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_4yqtr"), "still", "walking", SubResource("AnimationNodeStateMachineTransition_j782d"), "walking", "still", SubResource("AnimationNodeStateMachineTransition_wva1f"), "surprise", "still", SubResource("AnimationNodeStateMachineTransition_qlqhq"), "idle", "surprise", SubResource("AnimationNodeStateMachineTransition_pinhd"), "still", "surprise", SubResource("AnimationNodeStateMachineTransition_agvph"), "walking", "surprise", SubResource("AnimationNodeStateMachineTransition_5prpm"), "idle", "wave", SubResource("AnimationNodeStateMachineTransition_wubh1"), "still", "wave", SubResource("AnimationNodeStateMachineTransition_5hsps"), "walking", "wave", SubResource("AnimationNodeStateMachineTransition_evxq3"), "wave", "still", SubResource("AnimationNodeStateMachineTransition_gueo8")]
 
 [node name="Player" type="CharacterBody3D" unique_id=987312890]
 script = ExtResource("1_qlqhq")
@@ -98,37 +114,21 @@ parameters/walking/blend_position = 0.0
 
 [node name="elokido" parent="." unique_id=417521309 instance=ExtResource("2_pinhd")]
 
-[node name="Skeleton3D" parent="elokido/Rig" parent_id_path=PackedInt32Array(417521309, 2067668887) index="0" unique_id=1078508150]
-bones/0/position = Vector3(-0.009420484, 0, 0)
-bones/0/rotation = Quaternion(0, 0, -0.013570027, 0.99990803)
-bones/2/rotation = Quaternion(0.37015668, 0.25783268, 0.87163925, -0.19170633)
-bones/3/rotation = Quaternion(-0.15232708, -0.13360903, -0.03176085, 0.9787423)
-bones/5/rotation = Quaternion(-0.23840977, 0.27242443, 0.927243, 0.09574128)
-bones/6/rotation = Quaternion(-0.15777707, 0.13234055, 0.028761718, 0.9781438)
-bones/8/rotation = Quaternion(0.07516993, 0.0020959673, -0.027793307, 0.99678123)
-bones/10/rotation = Quaternion(0.97822064, 0.10715887, 0.0011956317, -0.17776383)
-bones/11/rotation = Quaternion(-0.20524909, 0.4163207, -0.4382461, 0.76973397)
-bones/13/rotation = Quaternion(0.9814347, -0.07217015, 0.005143549, -0.17762591)
-bones/14/rotation = Quaternion(-0.20116885, -0.42088988, 0.43402228, 0.7707188)
-
-[node name="LeftFootStep" type="BoneAttachment3D" parent="elokido/Rig/Skeleton3D" index="29" unique_id=473739028]
-transform = Transform3D(0.12280309, 0.6133555, 0.780202, 0.76844674, -0.556252, 0.31634432, 0.62802047, 0.5606958, -0.53964055, 0.07051773, 0.11975564, -4.7311187e-06)
-bone_name = "Foot.L"
-bone_idx = 11
-
-[node name="Ankle" type="Node3D" parent="elokido/Rig/Skeleton3D/LeftFootStep" unique_id=1536008165]
-
-[node name="Toe" type="Marker3D" parent="elokido/Rig/Skeleton3D/LeftFootStep/Ankle" unique_id=559062785]
-transform = Transform3D(0.99899435, 0.024985641, -0.037222594, -0.024708599, 0.9996637, 0.007880658, 0.03740698, -0.0069530606, 0.9992759, 0.025, 0.25, 0)
-
-[node name="RightFootStep" type="BoneAttachment3D" parent="elokido/Rig/Skeleton3D" index="30" unique_id=846730932]
-transform = Transform3D(0.14532273, -0.61022437, -0.77878636, -0.75839376, -0.5742134, 0.3084121, -0.6353902, 0.5458076, -0.5462366, -0.07214901, 0.12168944, 2.4363399e-06)
-bone_name = "Foot.R"
-bone_idx = 14
-
-[node name="Ankle" type="Node3D" parent="elokido/Rig/Skeleton3D/RightFootStep" unique_id=128771032]
-
-[node name="Toe" type="Marker3D" parent="elokido/Rig/Skeleton3D/RightFootStep/Ankle" unique_id=1615507348]
-transform = Transform3D(0.9999998, -2.9802322e-08, 0, 0, 0.99999994, -2.9802322e-08, -2.9802322e-08, -2.9802322e-08, 0.9999999, -0.025, 0.25, 0)
+[node name="Skeleton3D" parent="elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1449593319) index="0" unique_id=15513698]
+bones/0/position = Vector3(6.456948e-05, 0.2720461, 0.032734677)
+bones/0/rotation = Quaternion(-0.07519905, -2.4223475e-05, 0.00032121243, 0.9971685)
+bones/1/rotation = Quaternion(0.6464685, 0.21084435, 0.6497392, -0.33979702)
+bones/2/rotation = Quaternion(-0.16032211, -0.15529208, 0.0073460424, 0.9747448)
+bones/3/rotation = Quaternion(0.46655872, -0.2549318, 0.5256212, 0.66411984)
+bones/4/rotation = Quaternion(-0.64642495, 0.2109338, 0.6497485, 0.33980665)
+bones/5/rotation = Quaternion(-0.16032879, 0.15529047, -0.0073496965, 0.97474384)
+bones/6/rotation = Quaternion(0.46655872, 0.2549318, -0.5256212, 0.66411984)
+bones/7/rotation = Quaternion(0.07519915, 6.972423e-07, -9.240812e-06, 0.99716854)
+bones/9/rotation = Quaternion(0.97840184, 0.105496936, 0.0008939897, -0.17776239)
+bones/10/rotation = Quaternion(-0.20502797, 0.41657633, -0.4380112, 0.7697883)
+bones/11/rotation = Quaternion(0.5763683, -1.1129145e-07, 0.6694657, 0.46863136)
+bones/12/rotation = Quaternion(0.978295, -0.10648007, -0.0010724302, -0.17776333)
+bones/13/rotation = Quaternion(-0.20540364, -0.41614175, 0.43841052, 0.76969594)
+bones/14/rotation = Quaternion(-0.5763683, -1.1129145e-07, 0.6694657, -0.46863136)
 
 [editable path="elokido"]

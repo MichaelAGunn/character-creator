@@ -112,15 +112,15 @@ color = Color(1, 1, 1, 1)
 edit_alpha = false
 edit_intensity = false
 
-[node name="Radius" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=177819532]
+[node name="Head" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=177819532]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Radius" unique_id=55336545]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Head" unique_id=55336545]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "Radius"
+text = "Head Size"
 
-[node name="RadiusHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Radius" unique_id=794847787]
+[node name="HeadHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Head" unique_id=794847787]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -374,6 +374,21 @@ layout_mode = 2
 size_flags_horizontal = 6
 color = Color(1, 1, 1, 1)
 
+[node name="Hands" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1383582531]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Hands" unique_id=2035125139]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Hand Size"
+
+[node name="HandsHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Hands" unique_id=302392836]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
 [node name="Rings" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=135334599]
 layout_mode = 2
 
@@ -499,6 +514,21 @@ layout_mode = 2
 size_flags_horizontal = 6
 color = Color(1, 1, 1, 1)
 
+[node name="Feet" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1632978886]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Feet" unique_id=333299069]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Foot Size"
+
+[node name="FeetHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/Feet" unique_id=1265991185]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
 [node name="Shoes" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer" unique_id=1451489599]
 layout_mode = 2
 
@@ -609,18 +639,22 @@ anim_player = NodePath("../elokido/AnimationPlayer")
 
 [node name="elokido" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport" unique_id=417521309 instance=ExtResource("2_cew4c")]
 
-[node name="Skeleton3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1558775972) index="0" unique_id=1589454723]
-bones/0/position = Vector3(0.028703608, 0, 0)
-bones/0/rotation = Quaternion(0, 0, 0.041147448, 0.9991531)
-bones/2/rotation = Quaternion(0.58642155, 0.22240534, 0.7136695, -0.31196412)
-bones/3/rotation = Quaternion(-0.11092358, -0.029032387, -0.21284607, 0.9703349)
-bones/5/rotation = Quaternion(-0.5222496, 0.24634916, 0.7715279, 0.2670436)
-bones/6/rotation = Quaternion(-0.14204885, 0.02238075, 0.19597952, 0.9700069)
-bones/8/rotation = Quaternion(0.07513225, 0.0031710952, -0.0420498, 0.9962816)
-bones/10/rotation = Quaternion(0.9834194, 0.036513973, -0.011579841, -0.17725372)
-bones/11/rotation = Quaternion(-0.20518528, 0.4163945, -0.43817833, 0.76974964)
-bones/13/rotation = Quaternion(0.9736753, -0.14258672, -0.007638157, -0.17767173)
-bones/14/rotation = Quaternion(-0.20527244, -0.41628948, 0.43827465, 0.76972836)
+[node name="Skeleton3D" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig" parent_id_path=PackedInt32Array(417521309, 1931656610) index="0" unique_id=186694213]
+bones/0/position = Vector3(-0.0012657114, 0.27200833, 0.032734677)
+bones/0/rotation = Quaternion(-0.0751966, 0.00061724434, -0.008184894, 0.9971349)
+bones/1/rotation = Quaternion(0.65748286, 0.20930852, 0.6367966, -0.3440877)
+bones/2/rotation = Quaternion(-0.17876986, -0.23948498, 0.14225024, 0.9436383)
+bones/3/rotation = Quaternion(0.46655872, -0.2549318, 0.5256212, 0.66411984)
+bones/4/rotation = Quaternion(-0.65512836, 0.20799129, 0.6393221, 0.34469372)
+bones/5/rotation = Quaternion(-0.18820348, 0.26615703, -0.20843333, 0.9221147)
+bones/6/rotation = Quaternion(0.46655872, 0.2549318, -0.5256212, 0.66411984)
+bones/7/rotation = Quaternion(0.075189434, -0.0012098819, 0.01604348, 0.99703956)
+bones/9/rotation = Quaternion(0.9774192, 0.114217594, 0.002477335, -0.17776416)
+bones/10/rotation = Quaternion(-0.205384, 0.41616455, -0.4383895, 0.7697007)
+bones/11/rotation = Quaternion(0.5763683, -1.1129145e-07, 0.6694657, 0.46863136)
+bones/12/rotation = Quaternion(0.97966325, -0.0931031, 0.0013537479, -0.17773558)
+bones/13/rotation = Quaternion(-0.20533322, -0.416221, 0.43833762, 0.7697133)
+bones/14/rotation = Quaternion(-0.5763683, -1.1129145e-07, 0.6694657, -0.46863136)
 
 [connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsMargin/ScrollContainer/VBoxContainer/SkinColor/SkinColorPickerButton" to="." method="_on_skin_color_picker_button_color_changed"]
 
