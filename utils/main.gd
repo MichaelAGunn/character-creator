@@ -22,9 +22,9 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("main"):
 			if creator_ui.camera.current:
 				if never_mm:
-					main_menu.resume_btn.pressed.connect(_on_resume_pressed)
-					main_menu.gallery_btn.pressed.connect(_on_gallery_pressed)
-					main_menu.exit_btn.pressed.connect(_on_exit_pressed)
+					main_menu.resume_button.pressed.connect(_on_resume_pressed)
+					main_menu.gallery_button.pressed.connect(_on_gallery_pressed)
+					main_menu.exit_button.pressed.connect(_on_exit_pressed)
 					never_mm = false
 				if photo_gallery.gallery_active:
 					if photo_gallery.full_view.visible:
