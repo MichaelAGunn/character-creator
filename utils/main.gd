@@ -19,14 +19,6 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		# Open and close UI; first time connects buttons
-		if Input.is_action_just_pressed("creator"):
-			if main_menu.visible == false:
-				if photo_effects.photo_mode == false:
-					if never_ui:
-						creator_ui.save_button.pressed.connect(_on_save_pressed)
-						creator_ui.cancel_button.pressed.connect(_on_cancel_pressed)
-						never_ui = false
-					toggle_creator()
 		if Input.is_action_just_pressed("main"):
 			if creator_ui.camera.current:
 				if never_mm:
@@ -34,14 +26,30 @@ func _input(event: InputEvent) -> void:
 					main_menu.gallery_btn.pressed.connect(_on_gallery_pressed)
 					main_menu.exit_btn.pressed.connect(_on_exit_pressed)
 					never_mm = false
-				toggle_main_menu()
-		if Input.is_action_just_pressed("photo_mode"):
-			if main_menu.visible == false:
-				if creator_ui.visible == false:
-					photo_effects.toggle_photo_mode()
-		if Input.is_action_just_pressed("take_photo"):
-			if photo_effects.photo_mode:
-				PhotoManager.take_photo()
+				if photo_gallery.gallery_active:
+					if photo_gallery.full_view.visible:
+						photo_gallery._close_full_view()
+					else:
+						photo_gallery.hide()
+						photo_gallery.gallery_active = false
+				else:
+					toggle_main_menu()
+		if photo_gallery.gallery_active == false:
+			if Input.is_action_just_pressed("creator"):
+				if main_menu.visible == false:
+					if photo_effects.photo_mode == false:
+						if never_ui:
+							creator_ui.save_button.pressed.connect(_on_save_pressed)
+							creator_ui.cancel_button.pressed.connect(_on_cancel_pressed)
+							never_ui = false
+						toggle_creator()
+			if Input.is_action_just_pressed("photo_mode"):
+				if main_menu.visible == false:
+					if creator_ui.visible == false:
+						photo_effects.toggle_photo_mode()
+			if Input.is_action_just_pressed("take_photo"):
+				if photo_effects.photo_mode:
+					PhotoManager.take_photo()
 
 
 func toggle_creator() -> void:
@@ -88,6 +96,7 @@ func _on_gallery_pressed() -> void:
 	photo_effects.photo_mode = !photo_effects.photo_mode
 	main_menu.visible = !main_menu.visible
 	photo_gallery.visible = !photo_gallery.visible
+	photo_gallery.gallery_active = true
 	AudioManager.ui.play()
 	if never_gallery:
 		photo_gallery.back_button.pressed.connect(_on_leave_gallery)

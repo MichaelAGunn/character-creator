@@ -21,12 +21,13 @@ func _ready() -> void:
 	PhotoManager.photo_taken.connect(_on_photo_taken)
 	get_viewport().size_changed.connect(_update_frame_layout)
 	_update_frame_layout()
-	await get_tree().create_timer(0.25).timeout
-	frame.visible = true
+	#await get_tree().create_timer(0.3).timeout
+	#frame.visible = true
 
 
 func toggle_photo_mode() -> void:
-	# TODO: tween labels with modulate.a
+	if frame.visible == false:
+		frame.visible = true
 	photo_mode = !photo_mode
 	prompt.visible = !prompt.visible
 	message.visible = !message.visible

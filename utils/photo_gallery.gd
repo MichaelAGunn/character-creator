@@ -1,20 +1,29 @@
 extends Control
 
-@onready var grid: GridContainer = $Background/VBoxContainer/Photos/ScrollContainer/GridContainer
-@onready var full_view: TextureRect = $Background/VBoxContainer/Photos/FullViewBG/MarginContainer/FullView
-@onready var full_view_bg: ColorRect = $Background/VBoxContainer/Photos/FullViewBG
-@onready var delete_button: Button = $Background/VBoxContainer/Buttons/Delete
-@onready var back_button: Button = $Background/VBoxContainer/Buttons/Back
-@onready var count_label: Label = $Background/VBoxContainer/Header/PhotoCount
+@onready var count_label: Label = $VBoxContainer/Header/HBoxContainer/PhotoCount
+@onready var grid: GridContainer = $VBoxContainer/ScrollContainer/GridContainer
+@onready var full_view: TextureRect = $FullView
+@onready var full_view_bg: ColorRect = $FullViewBG
+@onready var delete_button: Button = $FullView/Delete
+@onready var close_button: Button = $FullView/Close
+@onready var back_button: Button = $VBoxContainer/BottomBar/Back
+@onready var prev_button = $FullView/Prev
+@onready var next_button = $FullView/Next
+
 
 var current_full_path: String = ""
+var gallery_active: bool = false
+#var photos: PackedStringArray = []
+#var current_index: int = -1
 
 func _ready() -> void:
 	full_view.hide()
 	full_view_bg.hide()
+	close_button.hide()
 	delete_button.hide()
-	back_button.pressed.connect(_on_back_button_pressed)
 	delete_button.pressed.connect(_on_delete_button_pressed)
+	close_button.pressed.connect(_on_back_button_pressed)
+	back_button.pressed.connect(_on_back_button_pressed)
 	PhotoManager.photos_changed.connect(populate_gallery)
 	populate_gallery()
 
@@ -43,7 +52,9 @@ func _on_thumbnail_pressed(path: String, tex: ImageTexture) -> void:
 	full_view.texture = tex
 	full_view.show()
 	full_view_bg.show()
+	close_button.show()
 	delete_button.show()
+	back_button.hide()
 
 
 func _on_delete_button_pressed() -> void:
@@ -53,11 +64,17 @@ func _on_delete_button_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
-	hide()
+	if full_view.visible:
+		_close_full_view()
+	else:
+		hide()
+		gallery_active = false
 
 
 func _close_full_view() -> void:
 	full_view.hide()
 	full_view_bg.hide()
+	close_button.hide()
 	delete_button.hide()
+	back_button.show()
 	current_full_path = ""
