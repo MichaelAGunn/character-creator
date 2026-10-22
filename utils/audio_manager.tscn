@@ -27,3 +27,5 @@ bus = &"SFX"
 stream = SubResource("AudioStreamRandomizer_pinhd")
 volume_db = -2.0
 bus = &"SFX"
+
+[node name="FlashPlayer" type="AudioStreamPlayer" parent="." unique_id=1116123947]
