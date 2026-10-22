@@ -418,7 +418,7 @@ func _on_save_pressed() -> void:
 func _on_cancel_pressed() -> void:
 	AudioManager.ui.set_stream(AudioManager.SUBMIT)
 	AudioManager.ui.play()
-	#fully_revert_ui()
+	fully_revert_ui()
 
 
 func _on_accessory_button_pressed(button: Button) -> void:
