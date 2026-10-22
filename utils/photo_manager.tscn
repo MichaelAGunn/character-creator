@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b52m3ffahcbkr"]
+
+[ext_resource type="Script" uid="uid://cgfooeptcjy7e" path="res://utils/photo_manager.gd" id="1_ggk6k"]
+
+[node name="PhotoManager" type="Node" unique_id=85315493]
+script = ExtResource("1_ggk6k")

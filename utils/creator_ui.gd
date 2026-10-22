@@ -156,7 +156,8 @@ func _ready() -> void:
 			var category: String = child.name.get_slice("_", 0)
 			if child.name != "Mesh":
 				child.name = child.name.get_slice("_", 1)
-				child.visible = false
+				child.hide()
+				#child.visible = false
 			# Apply shader material
 			for surface in range(child.get_surface_override_material_count()):
 				if category in ["Eyes", "Ring", "Earring"]:
@@ -200,12 +201,14 @@ func change_color(new_color: Color, node: MeshInstance3D, slot: int = 0) -> void
 func change_accessory(direction: int, list: Array[MeshInstance3D], index: int, total: int, picker: ColorPickerButton, label: Label, picker2: ColorPickerButton = null) -> int:
 	var old_acc: MeshInstance3D = list[index]
 	if old_acc != null:
-		old_acc.visible = false
+		old_acc.hide()
+		#old_acc.visible = false
 	index = wrap(index + direction, 0, total)
 	
 	var new_acc: MeshInstance3D = list[index]
 	if new_acc != null:
-		new_acc.visible = true
+		new_acc.show()
+		#new_acc.visible = true
 		label.text = new_acc.name
 		change_color(picker.get_picker().color, new_acc)
 		if new_acc.mesh.get_surface_count() > 1:
@@ -273,10 +276,10 @@ func revert_sizes() -> void:
 func revert_accessory(list: Array[MeshInstance3D], index: int, _player_list: Array, player_index: int, _picker: ColorPickerButton, label: Label) -> int:
 	if index != player_index:
 		if list[index] != null:
-			list[index].visible = false
+			list[index].hide()#visible = false
 		index = player_index
 		if list[index] != null:
-			list[index].visible = true
+			list[index].show()#visible = true
 			label.text = list[index].name
 
 	return index

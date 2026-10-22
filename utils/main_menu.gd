@@ -1,20 +1,50 @@
 extends Control
 
-@onready var resume = $VBoxContainer/Resume
-@onready var mode = $VBoxContainer/Mode
-@onready var load = $VBoxContainer/Load
-@onready var credits = $VBoxContainer/Credits
-@onready var exit = $VBoxContainer/Exit
+@onready var button_container: VBoxContainer = $ColorRect/VBoxContainer
+@onready var credits_container: MarginContainer = $ColorRect/CreditsMargin
+@onready var credit_reel: Label = $ColorRect/CreditsMargin/ColorRect/CreditReel
+
+@onready var resume_btn: Button = $ColorRect/VBoxContainer/Resume
+@onready var load_btn: Button = $ColorRect/VBoxContainer/Load
+@onready var gallery_btn = $ColorRect/VBoxContainer/Gallery
+@onready var credits_btn: Button = $ColorRect/VBoxContainer/Credits
+@onready var exit_btn: Button = $ColorRect/VBoxContainer/Exit
+
+var credits_playing: bool = false
 
 func _ready() -> void:
-	visible = false
-	load.pressed.connect(_on_load_pressed)
-	credits.pressed.connect(_on_credits_pressed)
+	hide()
+	credits_container.modulate.a = 0.0
+	credit_reel.modulate.a = 0.0
+	load_btn.pressed.connect(_on_load_pressed)
+	credits_btn.pressed.connect(_on_credits_pressed)
 
 
 func _on_load_pressed() -> void:
+	# TODO: Save the current outfit to file
 	pass
 
 
 func _on_credits_pressed() -> void:
-	pass
+	credits_playing = true
+	button_container.hide()
+	
+	var credit_in_tween = create_tween()
+	credit_in_tween.tween_property(credits_container, "modulate:a", 1.0, 1.0)
+	var reel_in_tween = create_tween()
+	reel_in_tween.tween_property(credit_reel, "modulate:a", 1.0, 1.0)
+	await reel_in_tween.finished
+	credit_in_tween.kill()
+	reel_in_tween.kill()
+	await get_tree().create_timer(3.0).timeout
+	
+	var credit_out_tween = create_tween()
+	credit_out_tween.tween_property(credits_container, "modulate:a", 0.0, 1.0)
+	var reel_out_tween = create_tween()
+	reel_out_tween.tween_property(credit_reel, "modulate:a", 0.0, 1.0)
+	await reel_out_tween.finished
+	credit_out_tween.kill()
+	reel_out_tween.kill()
+	
+	button_container.show()
+	credits_playing = false

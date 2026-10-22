@@ -5,7 +5,7 @@ const SPEED: float = 5.0
 const ACCELERATION: float = 12.0
 const ROTATION: float = 10.0
 
-const TOON = preload("uid://btrikqauyyvs2")#preload("uid://dvnq1gtre07ho")
+const TOON = preload("uid://btrikqauyyvs2")
 const OUTLINE = preload("uid://dxfb53kwyrd3a")
 
 @onready var skeleton = $elokido/Rig/Skeleton3D
@@ -48,7 +48,7 @@ var mouse_sensitivity: float = 0.15
 var joystick_sensitivity: float = 1.0
 var invert_y: bool = false
 var _mouse_input_direction := Vector2.ZERO
-var limit: int = 5.0
+var limit: float = 5.0
 var is_playing_special: bool = false
 
 func _ready() -> void:
@@ -159,7 +159,7 @@ func _handle_movement_input(delta: float) -> void:
 
 
 func footstep() -> void:
-	AudioManager.char.play()
+	AudioManager.character.play()
 
 
 func _on_ui_saved() -> void:
