@@ -1,5 +1,8 @@
 extends Control
 
+const prompt_e: String = "Press E to enter photo mode."
+const prompt_enter: String = "Press Enter to take photo."
+
 @onready var flash: ColorRect = $Flash
 @onready var prompt: Label = $Prompt
 @onready var message: Label = $Message
@@ -16,22 +19,25 @@ var photo_mode: bool = false
 func _ready() -> void:
 	flash.modulate.a = 0.0
 	message.modulate.a = 0.0
+	#message.text = "Photo saved!"
 	frame.visible = false
 	_set_frames_visible(false)
 	PhotoManager.photo_taken.connect(_on_photo_taken)
 	get_viewport().size_changed.connect(_update_frame_layout)
 	_update_frame_layout()
-	#await get_tree().create_timer(0.3).timeout
-	#frame.visible = true
 
 
 func toggle_photo_mode() -> void:
 	if frame.visible == false:
 		frame.visible = true
 	photo_mode = !photo_mode
-	prompt.visible = !prompt.visible
-	message.visible = !message.visible
-	show_viewfinder(!message.visible)
+	#prompt.visible = !prompt.visible
+	#message.visible = !message.visible
+	show_viewfinder(photo_mode)
+	if photo_mode:
+		prompt.text = prompt_enter
+	else:
+		prompt.text = prompt_e
 
 
 func _on_photo_taken(_path: String) -> void:

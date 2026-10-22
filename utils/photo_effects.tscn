@@ -55,7 +55,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_x0r5d"]
 resource_name = "hide_frame"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -107,7 +107,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_4q4xx"]
 resource_name = "show_frame"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -174,45 +174,6 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_73hn4")
 
-[node name="Flash" type="ColorRect" parent="." unique_id=668223614]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Prompt" type="Label" parent="." unique_id=1059678559]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 40.0
-grow_vertical = 0
-text = "Press E to enter photo mode."
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Message" type="Label" parent="." unique_id=1938212383]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Photo saved!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1475549471]
-libraries/ = SubResource("AnimationLibrary_0nh1o")
-
 [node name="Frame" type="Control" parent="." unique_id=1942785006]
 anchors_preset = 0
 offset_right = 40.0
@@ -273,3 +234,46 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.6509804)
+
+[node name="Flash" type="ColorRect" parent="." unique_id=668223614]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Prompt" type="Label" parent="." unique_id=1059678559]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(50, -50)
+text = "Press E to enter photo mode."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="." unique_id=1938212383]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(-50, -50)
+text = "Photo saved!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1475549471]
+libraries/ = SubResource("AnimationLibrary_0nh1o")

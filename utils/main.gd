@@ -33,6 +33,8 @@ func _input(event: InputEvent) -> void:
 						photo_gallery.hide()
 						photo_gallery.gallery_active = false
 				else:
+					if photo_effects.photo_mode:
+						photo_effects.toggle_photo_mode()
 					toggle_main_menu()
 		if photo_gallery.gallery_active == false:
 			if Input.is_action_just_pressed("creator"):
