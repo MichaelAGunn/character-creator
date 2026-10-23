@@ -2,7 +2,6 @@ extends Control
 
 const TOON = preload("uid://btrikqauyyvs2")#preload("uid://dvnq1gtre07ho")
 const OUTLINE = preload("uid://dxfb53kwyrd3a")
-const SAVE_PATH: String = "user://character_appearance.tres"
 
 @export var player: Player
 
