@@ -3,12 +3,12 @@ extends Control
 @onready var button_container: VBoxContainer = $ColorRect/VBoxContainer
 @onready var credits_container: MarginContainer = $ColorRect/CreditsMargin
 @onready var credit_reel: Label = $ColorRect/CreditsMargin/ColorRect/CreditReel
-
-@onready var resume_btn: Button = $ColorRect/VBoxContainer/Resume
-@onready var load_btn: Button = $ColorRect/VBoxContainer/Load
-@onready var gallery_btn = $ColorRect/VBoxContainer/Gallery
-@onready var credits_btn: Button = $ColorRect/VBoxContainer/Credits
-@onready var exit_btn: Button = $ColorRect/VBoxContainer/Exit
+@onready var resume_button: Button = $ColorRect/VBoxContainer/Resume
+@onready var load_button: Button = $ColorRect/VBoxContainer/Load
+@onready var save_button: Button = $ColorRect/VBoxContainer/Save
+@onready var gallery_button: Button = $ColorRect/VBoxContainer/Gallery
+@onready var credits_button: Button = $ColorRect/VBoxContainer/Credits
+@onready var exit_button: Button = $ColorRect/VBoxContainer/Exit
 
 var credits_playing: bool = false
 
@@ -16,13 +16,7 @@ func _ready() -> void:
 	hide()
 	credits_container.modulate.a = 0.0
 	credit_reel.modulate.a = 0.0
-	load_btn.pressed.connect(_on_load_pressed)
-	credits_btn.pressed.connect(_on_credits_pressed)
-
-
-func _on_load_pressed() -> void:
-	# TODO: Save the current outfit to file
-	pass
+	credits_button.pressed.connect(_on_credits_pressed)
 
 
 func _on_credits_pressed() -> void:

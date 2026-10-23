@@ -49,6 +49,10 @@ text = "Resume"
 layout_mode = 2
 text = "Load File"
 
+[node name="Save" type="Button" parent="ColorRect/VBoxContainer" unique_id=381784930]
+layout_mode = 2
+text = "Save to File"
+
 [node name="Gallery" type="Button" parent="ColorRect/VBoxContainer" unique_id=440187049]
 layout_mode = 2
 text = "Gallery"
