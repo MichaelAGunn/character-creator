@@ -1,13 +1,13 @@
 extends Control
 
-const TOON = preload("uid://btrikqauyyvs2")#preload("uid://dvnq1gtre07ho")
+const TOON = preload("uid://btrikqauyyvs2")
 const OUTLINE = preload("uid://dxfb53kwyrd3a")
 
 @export var player: Player
 
 # Subviewport Assets
 @onready var skeleton: Skeleton3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D
-@onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D/Mesh#$MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/human/MaleRig/Skeleton3D/MaleMesh
+@onready var body: MeshInstance3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/elokido/Rig/Skeleton3D/Mesh
 @onready var sub_viewport: SubViewport = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport
 @onready var camera: Camera3D = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SubViewportMargin/SubViewportContainer/SubViewport/Camera3D
 
@@ -157,7 +157,6 @@ func _ready() -> void:
 			if child.name != "Mesh":
 				child.name = child.name.get_slice("_", 1)
 				child.hide()
-				#child.visible = false
 			# Apply shader material
 			for surface in range(child.get_surface_override_material_count()):
 				if category in ["Eyes", "Ring", "Earring"]:
@@ -198,21 +197,19 @@ func change_color(new_color: Color, node: MeshInstance3D, slot: int = 0) -> void
 		print("No material found!")
 
 
-func change_accessory(direction: int, list: Array[MeshInstance3D], index: int, total: int, picker: ColorPickerButton, label: Label, picker2: ColorPickerButton = null) -> int:
+func change_accessory(direction: int, list: Array[MeshInstance3D], index: int, total: int, picker: Color, label: Label, picker2: Color = Color()) -> int:
 	var old_acc: MeshInstance3D = list[index]
 	if old_acc != null:
 		old_acc.hide()
-		#old_acc.visible = false
 	index = wrap(index + direction, 0, total)
 	
 	var new_acc: MeshInstance3D = list[index]
 	if new_acc != null:
 		new_acc.show()
-		#new_acc.visible = true
 		label.text = new_acc.name
-		change_color(picker.get_picker().color, new_acc)
+		change_color(picker, new_acc)
 		if new_acc.mesh.get_surface_count() > 1:
-			change_color(picker2.get_picker().color, new_acc, 1)
+			change_color(picker2, new_acc, 1)
 		if new_acc.get_blend_shape_count() > 0:
 			match label:
 				hats_label, eyes_label, earrings_label:
@@ -276,10 +273,10 @@ func revert_sizes() -> void:
 func revert_accessory(list: Array[MeshInstance3D], index: int, _player_list: Array, player_index: int, _picker: ColorPickerButton, label: Label) -> int:
 	if index != player_index:
 		if list[index] != null:
-			list[index].hide()#visible = false
+			list[index].hide()
 		index = player_index
 		if list[index] != null:
-			list[index].show()#visible = true
+			list[index].show()
 			label.text = list[index].name
 
 	return index
@@ -324,6 +321,51 @@ func fully_revert_ui() -> void:
 		revert_to_color = player.shoes[player.current_shoes_index].get_active_material(0).get_shader_parameter("albedo_color")
 		revert_color(shoes_color_picker_button, revert_to_color, shoes[current_shoes_index])
 	revert_sizes()
+
+
+func apply_appearance(appearance) -> void:
+	# TODO: make null values disappear (if xyz_choice == 0)
+	head_h_slider.value = appearance.head_size
+	hands_h_slider.value = appearance.hand_size
+	feet_h_slider.value = appearance.foot_size
+	skin_color_picker_button.get_picker().color = appearance.skin_color
+	if appearance.eye_choice > 0:
+		eyes_label.text = eyes[appearance.eye_choice].name
+	else:
+		eyes_label.text = "None"
+	eye_color_picker_button.get_picker().color = appearance.eye_color
+	pupil_color_picker_button.get_picker().color = appearance.pupil_color
+	if appearance.hat_choice > 0:
+		hats_label.text = hats[appearance.hat_choice].name
+	else:
+		hats_label.text = "None"
+	hat_color_picker_button.get_picker().color = appearance.hat_color
+	if appearance.shirt_choice > 0:
+		shirts_label.text = shirts[appearance.shirt_choice].name
+	else:
+		shirts_label.text =  "None"
+	shirt_color_picker_button.get_picker().color = appearance.shirt_color
+	if appearance.pants_choice > 0:
+		pants_label.text = pants[appearance.pants_choice].name
+	else:
+		pants_label.text = "None"
+	pants_color_picker_button.get_picker().color = appearance.pants_color
+	if appearance.ring_choice > 0:
+		rings_label.text = rings[appearance.ring_choice].name
+	else:
+		rings_label.text = "None"
+	ring_color_picker_button.get_picker().color = appearance.ring_color
+	gem_color_picker_button.get_picker().color = appearance.gem_color
+	if appearance.earring_choice > 0:
+		earrings_label.text = earrings[appearance.earring_choice].name
+	else:
+		earrings_label.text = "None"
+	earring_color_picker_button.get_picker().color = appearance.earring_color
+	if appearance.shoe_choice > 0:
+		shoes_label.text = shoes[appearance.shoe_choice].name
+	else:
+		shoes_label.text = "None"
+	shoes_color_picker_button.get_picker().color = appearance.shoe_color
 
 
 func _on_color_picked(color: Color, color_picker_button: ColorPickerButton) -> void:
@@ -428,22 +470,22 @@ func _on_accessory_button_pressed(button: Button) -> void:
 	match category:
 		"Eyes":
 			current_eyes_index = change_accessory(
-				is_next, eyes, current_eyes_index, total_eyes, eye_color_picker_button, eyes_label, pupil_color_picker_button)
+				is_next, eyes, current_eyes_index, total_eyes, eye_color_picker_button.get_picker().color, eyes_label, pupil_color_picker_button.get_picker().color)
 		"Hats":
 			current_hat_index = change_accessory(
-				is_next, hats, current_hat_index, total_hats, hat_color_picker_button, hats_label)
+				is_next, hats, current_hat_index, total_hats, hat_color_picker_button.get_picker().color, hats_label)
 		"Shirts": 
 			current_shirt_index = change_accessory(
-				is_next, shirts, current_shirt_index, total_shirts, shirt_color_picker_button, shirts_label)
+				is_next, shirts, current_shirt_index, total_shirts, shirt_color_picker_button.get_picker().color, shirts_label)
 		"Pants":
 			current_pants_index = change_accessory(
-				is_next, pants, current_pants_index, total_pants, pants_color_picker_button, pants_label)
+				is_next, pants, current_pants_index, total_pants, pants_color_picker_button.get_picker().color, pants_label)
 		"Rings":
 			current_ring_index = change_accessory(
-				is_next, rings, current_ring_index, total_rings, ring_color_picker_button, rings_label, gem_color_picker_button)
+				is_next, rings, current_ring_index, total_rings, ring_color_picker_button.get_picker().color, rings_label, gem_color_picker_button.get_picker().color)
 		"Earrings":
 			current_earring_index = change_accessory(
-				is_next, earrings, current_earring_index, total_earrings, earring_color_picker_button, earrings_label)
+				is_next, earrings, current_earring_index, total_earrings, earring_color_picker_button.get_picker().color, earrings_label)
 		"Shoes":
 			current_shoes_index = change_accessory(
-				is_next, shoes, current_shoes_index, total_shoes, shoes_color_picker_button, shoes_label)
+				is_next, shoes, current_shoes_index, total_shoes, shoes_color_picker_button.get_picker().color, shoes_label)

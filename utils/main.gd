@@ -26,6 +26,7 @@ func _input(event: InputEvent) -> void:
 			if creator_ui.camera.current:
 				if never_mm:
 					main_menu.resume_button.pressed.connect(_on_resume_pressed)
+					main_menu.load_button.pressed.connect(_on_load_pressed)
 					main_menu.save_button.pressed.connect(_on_save_pressed)
 					main_menu.gallery_button.pressed.connect(_on_gallery_pressed)
 					main_menu.exit_button.pressed.connect(_on_exit_pressed)
@@ -94,12 +95,73 @@ func toggle_main_menu() -> void:
 	AudioManager.ui.play()
 
 
+func apply_appearance() -> void:
+	# TODO: Get the whole file to load!
+	creator_ui.apply_appearance(appearance)
+	for e in [player, creator_ui]:
+		e.body.get_active_material(0).set_shader_parameter("albedo_color", appearance.skin_color)
+		e.body.set_blend_shape_value(0, appearance.head_size)
+		for i in e.eyes:
+			if i != null:
+				i.hide()
+		e.current_eyes_index = appearance.eye_choice
+		creator_ui.change_accessory(0, e.eyes, e.current_eyes_index, e.total_eyes, appearance.eye_color, creator_ui.eyes_label, appearance.pupil_color)
+		for h in e.hats:
+			if h != null:
+				h.hide()
+		e.current_hat_index = appearance.hat_choice
+		creator_ui.change_accessory(0, e.hats, e.current_hat_index, e.total_hats, appearance.hat_color, creator_ui.hats_label)
+		for s in e.shirts:
+			if s != null:
+				s.hide()
+		e.current_shirt_index = appearance.shirt_choice
+		creator_ui.change_accessory(0, e.shirts, e.current_shirt_index, e.total_shirts, appearance.shirt_color, creator_ui.shirts_label)
+		for p in e.pants:
+			if p != null:
+				p.hide()
+		e.current_pants_index = appearance.pants_choice
+		creator_ui.change_accessory(0, e.pants, e.current_pants_index, e.total_pants, appearance.pants_color, creator_ui.pants_label)
+		e.body.set_blend_shape_value(1, appearance.hand_size)
+		for r in e.rings:
+			if r != null:
+				r.hide()
+		e.current_ring_index = appearance.ring_choice
+		creator_ui.change_accessory(0, e.rings, e.current_ring_index, e.total_rings, appearance.ring_color, creator_ui.rings_label, appearance.gem_color)
+		for n in e.earrings:
+			if n != null:
+				n.hide()
+		e.current_earring_index = appearance.earring_choice
+		creator_ui.change_accessory(0, e.earrings, e.current_earring_index, e.total_earrings, appearance.earring_color, creator_ui.earrings_label)
+		e.body.set_blend_shape_value(2, appearance.foot_size)
+		for s in e.shoes:
+			if s != null:
+				s.hide()
+		e.current_shoes_index = appearance.shoe_choice
+		creator_ui.change_accessory(0, e.shoes, e.current_shoes_index, e.total_shoes, appearance.shoe_color, creator_ui.shoes_label)
+	
+	# Set UI parameters to match loaded appearance
+	creator_ui.fully_revert_ui()
+
+
 func _on_resume_pressed() -> void:
 	toggle_main_menu()
 
 
+func _on_load_pressed() -> void:
+	if ResourceLoader.exists(SAVE_PATH):
+		appearance = ResourceLoader.load(SAVE_PATH) as CharacterAppearance
+		if appearance:
+			apply_appearance()
+			print("Character appearance loaded.")
+			return
+	
+	# No save file found, create a new one with defaults
+	appearance = CharacterAppearance.new()
+	print("No saved character found – using defaults.")
+	apply_appearance()
+
+
 func _on_save_pressed() -> void:
-	# TODO: Save the current outfit to file
 	# Make sure the resource exists
 	if appearance == null:
 		appearance = CharacterAppearance.new()
@@ -125,6 +187,8 @@ func _on_save_pressed() -> void:
 	appearance.foot_size = creator_ui.feet_h_slider.value
 	appearance.shoe_choice = creator_ui.current_shoes_index
 	appearance.shoe_color = creator_ui.shoes_color_picker_button.get_picker().color
+	
+	# Save if possible
 	var error := ResourceSaver.save(appearance, SAVE_PATH)
 	if error == OK:
 		print("Character appearance saved.")
